@@ -6,8 +6,8 @@ const isProduction = process.env.NODE_ENV === 'production'
 module.exports = {
   loaders: utils.cssLoaders({
     sourceMap: isProduction
-      ? config.build.productionSourceMap
-      : config.dev.cssSourceMap,
+      ? config.build.productionSourceMap //true
+      : config.dev.cssSourceMap,         //false
     extract: isProduction
   }),
   transformToRequire: {

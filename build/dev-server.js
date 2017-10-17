@@ -1,16 +1,16 @@
 'use strict'
 require('./check-versions')()
 
-const config = require('../config')
+const config = require('../config') 
 if (!process.env.NODE_ENV) {
   process.env.NODE_ENV = JSON.parse(config.dev.env.NODE_ENV)
 }
 
-const opn = require('opn')
+const opn = require('opn')// 一个可以强制打开浏览器并跳转到指定 url 的插件
 const path = require('path')
 const express = require('express')
 const webpack = require('webpack')
-const proxyMiddleware = require('http-proxy-middleware')
+const proxyMiddleware = require('http-proxy-middleware')  //使用 proxyTable 
 const webpackConfig = (process.env.NODE_ENV === 'testing' || process.env.NODE_ENV === 'production')
   ? require('./webpack.prod.conf')
   : require('./webpack.dev.conf')

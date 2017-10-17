@@ -1,13 +1,34 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
+    <img v-lazy="img">
     <router-view/>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'app'
+  name: 'app',
+  data() {
+    return {
+      img: ''
+    }
+  },
+  mounted() {
+    this.fetch()
+  },
+  methods: {
+    test(){
+      return new Promise((res, rej) => {
+
+          res(require('./assets/logo.png'))
+
+      })
+    },
+    async fetch(){
+      let d = await this.test()
+      this.img = d
+    }
+  }
 }
 </script>
 
