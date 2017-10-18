@@ -47,6 +47,24 @@ module.exports = {
         loader: 'babel-loader',
         include: [resolve('src'), resolve('test')]
       },
+      // {
+      //   test: /\.css$/,
+      //   loader: 'style-loader!css-loader'
+      // },
+      // {
+      //   test:/\.css$/,
+      //   use:[
+      //     {
+      //       loader:'vue-style-loader'
+      //     },
+      //     {
+      //       loader: 'css-loader',
+      //       // options:{
+      //       //   modules: true
+      //       // }
+      //     }
+      //   ]
+      // },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         loader: 'url-loader',

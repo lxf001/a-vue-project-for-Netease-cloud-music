@@ -1,23 +1,30 @@
 <template>
-  <div id="app">
+  <div id="app" v-loading.fullscreen.lock="loading">
     <img src="./assets/logo.png">
     <router-view/>
+    
   </div>
 </template>
 
 <script>
+
 export default {
-  name: 'app'
+  name: 'app',
+  data() {
+    return {
+      loading: false,
+    }
+  },
+  mounted() {
+  }
 }
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style lang="scss">
+@import 'src/assets/style/mixin.scss';
+body {
+  background:$red;
 }
+
 </style>
+

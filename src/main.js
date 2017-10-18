@@ -4,8 +4,15 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import vueLazyload from 'vue-lazyload'
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-default/index.css'
 import '@/config/rem'
+import './assets/style/common.scss'
+
+
+
 Vue.config.productionTip = false
+Vue.use(ElementUI)
 
 Vue.use(vueLazyload, {
   preLoad: 1.3,
