@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import vueLazyload from 'vue-lazyload'
+import '@/config/rem'
 Vue.config.productionTip = false
 
 Vue.use(vueLazyload, {
@@ -24,8 +25,6 @@ if ('addEventListener' in document) {
 new Vue({
   el: '#app',
   router,
-  // template: '<App/>',
-  // components: { App }
   render (h) {
     return h(App)
   }
