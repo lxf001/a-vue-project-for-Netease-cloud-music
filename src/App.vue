@@ -1,30 +1,32 @@
 <template>
   <div id="app" v-loading.fullscreen.lock="loading">
-    <img src="./assets/logo.png">
+    <h></h>
     <router-view/>
-    
+    <play-bar></play-bar>
+
+
   </div>
 </template>
 
 <script>
-
+import playBar from "./components/playBar";
+import h from 'comp/head'
 export default {
-  name: 'app',
+  name: "app",
   data() {
     return {
-      loading: false,
-    }
+      loading: false
+    };
   },
-  mounted() {
-  }
-}
+  components: {
+    playBar,
+    h
+  },
+  mounted() {}
+};
 </script>
 
 <style lang="scss">
-@import 'src/assets/style/mixin.scss';
-body {
-  background:$red;
-}
-
+@import "src/assets/style/mixin.scss";
 </style>
 

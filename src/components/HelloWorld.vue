@@ -35,6 +35,7 @@ export default {
 <style scoped lang="scss">
 h1, h2 {
   font-weight: normal;
+  font-size: 1rem;
 }
 
 ul {

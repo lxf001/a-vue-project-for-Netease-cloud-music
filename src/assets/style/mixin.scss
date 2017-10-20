@@ -1,1 +1,19 @@
-$red: yellow;
+$red: rgb(211,58,49);
+$gray: rgb(128,128,128);
+$pink:rgb(229,137,131);
+$h: 1.5rem;
+@mixin cs($color,$size){
+    color:$color;
+    font-size:$size;
+}
+@mixin wh($width,$height:$width){
+    width:$width;
+    height:$height;
+}
+
+@mixin flex($justify,$align,$direction:row){
+    display: flex;
+    justify-content: $justify;
+    align-items: $align;
+    flex-direction: $direction;
+}
