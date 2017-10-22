@@ -17,3 +17,9 @@ $h: 1.5rem;
     align-items: $align;
     flex-direction: $direction;
 }
+@mixin ellipise(){
+  -ms-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}

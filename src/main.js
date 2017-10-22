@@ -3,9 +3,10 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import store from './store'
 import vueLazyload from 'vue-lazyload'
 import ElementUI from 'element-ui'
-// import 'element-ui/lib/theme-default/index.css'
+
 import '@/config/rem'
 import './assets/style/common.scss'
 
@@ -15,7 +16,7 @@ Vue.config.productionTip = false
 Vue.use(ElementUI)
 
 Vue.use(vueLazyload, {
-  preLoad: 1.3,
+  preLoad: 1.1,
   error: require('./assets/404.png'),
   loading: require('./assets/loading-spin.svg'),
   attempt: 1
@@ -32,6 +33,7 @@ if ('addEventListener' in document) {
 new Vue({
   el: '#app',
   router,
+  store,
   render (h) {
     return h(App)
   }

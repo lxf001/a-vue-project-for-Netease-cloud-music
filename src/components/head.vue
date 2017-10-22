@@ -1,0 +1,63 @@
+<template>
+  <div>
+    <div class="placeholder"></div>
+    <div class="head">
+
+      <!--空-->
+      <i class="iconfont icon-play2"></i>
+
+      <div class="center">
+        <router-link to="/music" class="iconfont icon-music" :class="this.$route.path ==='/music'?'white-icon':''"></router-link>
+        <router-link to="/" class="iconfont icon-netease" :class="this.$route.path ==='/'?'white-icon':''"></router-link>
+        <i class="iconfont icon-rank"></i>
+      </div>
+
+      <i class="iconfont icon-search"></i>
+    </div>
+  </div>
+</template>
+<script>
+  export default {
+    data() {
+      return {};
+    },
+    mounted() {
+//      console.log(this.$route);
+    },
+    methods: {
+
+    },
+    computed: {
+
+    }
+  };
+</script>
+<style lang="scss" scoped>
+  @import "../assets/style/mixin.scss";
+
+  .placeholder {
+    @include wh(100%, $h);
+  }
+
+  .head {
+    position: fixed;
+    top: 0;
+    z-index:99;
+    @include wh(100%,$h);
+    background: $red;
+    @include flex(space-between,center);
+    .iconfont{
+      @include cs($pink,.7rem);
+      padding: 0 .3rem;
+    }
+    .icon-play2{
+      color:$red;
+    }
+    .icon-search{
+      color:#fff;
+    }
+    .white-icon{
+      color:#fff;
+    }
+  }
+</style>

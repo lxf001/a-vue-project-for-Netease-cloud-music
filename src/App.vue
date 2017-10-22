@@ -1,7 +1,12 @@
 <template>
   <div id="app" v-loading.fullscreen.lock="loading">
-    <h></h>
-    <router-view/>
+    <h v-if="$route.meta.needHead"></h>
+    <transition name="router">
+      <keep-alive>
+        <router-view class="router"/>
+
+      </keep-alive>
+    </transition>
     <play-bar></play-bar>
 
 
@@ -9,24 +14,36 @@
 </template>
 
 <script>
-import playBar from "./components/playBar";
-import h from 'comp/head'
-export default {
-  name: "app",
-  data() {
-    return {
-      loading: false
-    };
-  },
-  components: {
-    playBar,
-    h
-  },
-  mounted() {}
-};
+  import playBar from "comp/playBar";
+  import h from 'comp/head.vue'
+  import {mapState} from 'vuex'
+  export default {
+    name: "app",
+    data() {
+      return {
+      };
+    },
+    components: {
+      playBar,
+      h
+    },
+    mounted() {
+    },
+    computed:{
+      ...mapState([
+        'loading'
+      ])
+    }
+  };
 </script>
 
 <style lang="scss">
-@import "src/assets/style/mixin.scss";
+  @import "./assets/style/mixin.scss";
+  .router-enter, .router-leave-to {
+    opacity: 0;
+  }
+  .router-enter-active, .router.leave-active{
+    transition: opacity 1s ease;
+  }
 </style>
 
