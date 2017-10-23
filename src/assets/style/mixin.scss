@@ -23,3 +23,52 @@ $h: 1.5rem;
   overflow: hidden;
   white-space: nowrap;
 }
+@mixin zero(){
+    top:0;
+    bottom: 0;
+    left:0;
+    right:0;
+}
+@mixin blurBg(){
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-position:center;
+    transform: scale(1.5);
+    -webkit-transform: scale(1.5);
+    filter:blur(1rem);
+    -webkit-filter: blur(1rem);
+    &::after{
+        content:'';
+        position: absolute;
+        background: rgba(0,0,0,.3);
+        @include zero();
+    }
+}
+@mixin headsetBar(){
+    position: relative;
+    .tag{
+        position: absolute;
+        top: .5rem;
+        left: 0;
+        background: $red;
+        @include cs(#fff,.3rem);
+        padding: 0 .2rem;
+        border-top-right-radius: .3rem;
+        border-bottom-right-radius: .3rem;
+    }
+    &::after{
+        content: '';
+        position: absolute;
+        top: 0;
+        @include wh(100%,.5rem);
+        background: rgba(0,0,0,.1);
+    }
+    .iconfont{
+        position: absolute;
+        top: 0;
+        right: 0;
+        @include cs(#fff,.35rem);
+        z-index: 3;
+        margin-right: .2rem;
+    }
+}

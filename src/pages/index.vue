@@ -15,8 +15,10 @@
         <span class="text">推荐歌单 ></span>
       </router-link>
       <div class="items">
-        <router-link :to="'/playlist/'+item.id" class="item one-third" v-for="item in recommendationData">
+        <router-link :to="'/playlist/'+item.id" class="item one-third" v-for="item in recommendationData" :key="item.id">
           <img v-lazy="item.picUrl" alt="">
+          <span class="tag" v-if="item.highQuality">精品</span>
+          <i class="iconfont icon-headset">{{numConversion(item.playCount)}}</i>
           <p>{{item.name}}</p>
         </router-link>
       </div>
@@ -28,8 +30,10 @@
         <span class="text">华语精选 ></span>
       </router-link>
       <div class="items">
-        <div class="item one-third" v-for="item in highQualityData">
+        <div class="item one-third" v-for="item in highQualityData" :key="item.id">
           <img v-lazy="item.coverImgUrl" alt="">
+          <span class="tag" v-if="item.highQuality">精品</span>
+          <i class="iconfont icon-headset">{{numConversion(item.playCount)}}</i>                    
           <p>{{item.name}}</p>
         </div>
       </div>
@@ -41,7 +45,7 @@
         <span class="text">独家放送 ></span>
       </router-link>
       <div class="items">
-        <div class="item half" v-for="item in privateCotentData">
+        <div class="item half" v-for="item in privateCotentData" :key="item.id">
           <img v-lazy="item.picUrl" alt="">
           <p>{{item.name}}</p>
         </div>
@@ -74,12 +78,14 @@
         'setLoading'
                   ]),
       async init() {
+        try{
         await this.getBanner();
         await this.getRecommendation();
         await this.getPrivateContent();
         await this.getHighQuality('华语');
+        }catch(e){
+        }
         this.setLoading(false);
-
       },
       async getBanner() {
         try {
@@ -112,64 +118,69 @@
         } catch (e) {
           console.log('getHighQuality', e);
         }
+      },
+      numConversion(num){
+        if(num>10000){
+          return Math.ceil(num/10000) +'万'
+        }
+        return num;
       }
     },
     computed: {},
   }
 </script>
 <style lang="scss" scoped>
-  @import '../assets/style/mixin.scss';
+@import "../assets/style/mixin.scss";
 
-  .banner-pic {
-    @include wh(100%, 4.8rem);
-  }
+.banner-pic {
+  @include wh(100%, 4.8rem);
+}
 
-  .content {
-    @include wh(100%);
-    .title {
-      display: block;
-      @include wh(100%, 1rem);
-      margin-top: .2rem;
-      @include flex(flex-start, center);
-      .text {
-        padding-left: .4rem;
-        border-left: 3px solid $red;
-      }
+.content {
+  @include wh(100%);
+  .title {
+    display: block;
+    @include wh(100%, 1rem);
+    margin-top: 0.2rem;
+    @include flex(flex-start, center);
+    .text {
+      padding-left: 0.4rem;
+      border-left: 3px solid $red;
     }
-    .items {
-      @include wh(100%);
-      @include flex(space-between, center);
-      flex-wrap: wrap;
-      .one-third {
-        flex-basis: 33%;
+  }
+  .items {
+    @include wh(100%);
+    @include flex(space-between, center);
+    flex-wrap: wrap;
+    .one-third {
+      flex-basis: 33%;
+      height: 5rem;
+    }
+    .half {
+      flex-basis: 40%;
+      flex-grow: 1;
+      height: 3.5rem;
+      &:last-child {
         height: 5rem;
       }
-      .half {
-        flex-basis: 40%;
-        flex-grow: 1;
-        height: 3.5rem;
-        &:last-child {
-          height: 5rem;
-        }
+    }
+    .item {
+      @include headsetBar();
+      overflow: hidden;
+      img {
+        width: 100%;
+        margin-bottom: 0.1rem;
       }
-      .item {
-
-        overflow: hidden;
-        img {
-          width: 100%;
-          margin-bottom: .1rem;
-        }
-        p {
-          @include ellipise();
-          white-space: normal;
-          display: -webkit-box;
-          -webkit-line-clamp: 2;
-          -webkit-box-orient: vertical;
-          font-size: .35rem;
-          padding: 0 .1rem;
-        }
+      p {
+        @include ellipise();
+        white-space: normal;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        font-size: 0.35rem;
+        padding: 0 0.1rem;
       }
     }
   }
-
+}
 </style>

@@ -7,6 +7,10 @@ import store from './store'
 import vueLazyload from 'vue-lazyload'
 import ElementUI from 'element-ui'
 
+import MuseUI from 'muse-ui'
+import 'muse-ui/dist/muse-ui.css'
+Vue.use(MuseUI)
+
 import '@/config/rem'
 import './assets/style/common.scss'
 

@@ -14,7 +14,8 @@ export default new Router({
       name: 'index',
       component: index,
       meta: {
-        needHead: true
+        needHead: true,
+        alive:true
       },
 
     },
@@ -31,7 +32,8 @@ export default new Router({
       name: 'playlist',
       component: playlist,
       meta: {
-        needHead: false
+        needHead: false,
+        alive:false
       },
       props:true
     }

@@ -10,6 +10,7 @@
         <router-link to="/music" class="iconfont icon-music" :class="this.$route.path ==='/music'?'white-icon':''"></router-link>
         <router-link to="/" class="iconfont icon-netease" :class="this.$route.path ==='/'?'white-icon':''"></router-link>
         <i class="iconfont icon-rank"></i>
+        
       </div>
 
       <i class="iconfont icon-search"></i>

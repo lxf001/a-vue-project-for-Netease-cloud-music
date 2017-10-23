@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="wrapper">
     <div class="placeholder"></div>
     <transition name="mask">
       <div class="mask" @touchmove.prevent @wheelDelta.prevent @click="toggleList" v-show="list"></div>
@@ -50,9 +50,12 @@
     computed: {}
   }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
   @import '../assets/style/mixin.scss';
-
+.wrapper{
+  position: relative;
+  z-index: 99;
+}
   .placeholder {
     @include wh(100%, $h);
   }
@@ -74,6 +77,7 @@
 
   .playBar {
     position: fixed;
+    z-index: 9;
     bottom: 0;
     @include wh(100%, $h);
     background: #fff;
@@ -94,6 +98,7 @@
     }
 
     .btn {
+      @include flex(space-between,center);
       .iconfont {
         @include cs($red, 1rem);
         padding: .2rem;
@@ -105,7 +110,7 @@
   .list {
     position: fixed;
     bottom: 0;
-    z-index: 99;
+    z-index: 999;
     @include wh(100%, 10rem);
     background: #fff;
     li {

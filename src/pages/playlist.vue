@@ -1,23 +1,212 @@
 <template>
     <div>
-123我 {{id}}
-      <img src="../assets/404.png" alt="">
+        <section class="header" ></section>
+        <section class="cover" >
+            <div class="background" :style="`background-image:url('${playlist.coverImgUrl}')`"></div>
+            <div class="cover-wrap">
+                <div class="wl">
+                    <img :src="playlist.coverImgUrl" alt="" class="cover-img">
+                    <i class="iconfont icon-headset">123</i>
+                    <span class="tag">歌单</span>
+                </div>
+                <div class="wr">
+                    <h2 class="name">{{playlist.name}}</h2>
+                    <div class="creator">
+                        <img :src="playlist.creator.avatarUrl" class="avatar" alt="">
+                        <span class="nickname">{{playlist.creator.nickname}} ></span>
+                    </div>
+                </div>
+            </div>
+            <div class="detail">
+                <div @click="message('收藏成功')" class="detail-item">
+                    <i class="iconfont icon-star"></i>
+                    <span>{{playlist.subscribedCount}}</span>
+                </div>
+                <div class="detail-item">
+                    <i class="iconfont icon-comment"></i>
+                    <span>{{playlist.commentCount}}</span>
+                </div>
+                <div class="detail-item">
+                    <i class="iconfont icon-share"></i>
+                    <span>{{playlist.shareCount}}</span>
+                </div>   
+            </div>  
+        </section>
+        <section class="playlist">
+            <h5 class="title">
+                歌曲列表
+            </h5>
+            <ul class="list">
+                <li class="item" v-for="(item,index) in playlist.tracks" :key="index">
+                    <div class="index">{{index+1}}</div>
+                    <div class="text">
+                        <p class="name">{{item.name}}</p>
+                        <p class="ar-name">{{item.ar[0].name+' - '+item.al.name}}</p>
+                    </div>
+                    <i class="iconfont icon-play1"></i>
+                </li>
+            </ul>
+        </section>
     </div>
 </template>
 <script>
-    export default {
-        data() {
-            return {}
-        },
-      props:['id'],
-        mounted() {
-          console.log(123)
-        },
-        methods: {},
-        computed: {}
-    }
+import { getPlaylistDetail, getMusicUrl, getMusic } from "config/fetch";
+import { mapActions } from "vuex";
+export default {
+  data() {
+    return {
+      playlist: {
+        creator: {}
+      },
+      urls: []
+    };
+  },
+  props: ["id"],
+  mounted() {
+    this.init();
+  },
+  methods: {
+    async init() {
+      this.setLoading(true);
+      await this.getPlaylistDetail();
+      let ids = this.playlist.trackIds.map(x => x.id);
+      await this.getMusicUrl(ids);
+      this.setLoading(false); 
+    },
+    async getPlaylistDetail() {
+      try {
+        let res = await getPlaylistDetail(this.id);
+        this.playlist = res.code === 200 ? res.playlist : {};
+      } catch (e) {
+        console.log("getPlaylistDetail", e);
+      }
+    },
+    async getMusicUrl(ids) {
+      try {
+        let res = await getMusicUrl(ids);
+        this.urls = res.code === 200 ? res.data : [];
+        console.log(4444, this.urls);
+      } catch (e) {
+        console.log("getMusicUrl", e);
+      }
+    },
+    message(message) {
+      this.$message({
+        message,
+        type: "success"
+      });
+    },
+    ...mapActions(["setLoading"])
+  },
+  computed: {}
+};
 </script>
 <style lang="scss" scoped>
-    @import '../assets/style/mixin.scss';
+@import "../assets/style/mixin.scss";
+.cover {
+  position: relative;
+  @include wh(100%,7rem);
+  overflow: hidden;
+  .background {
+    position: absolute;
+    top: 0;
+    @include wh(100%);
+    @include blurBg();
+  }
+  .cover-wrap {
+    @include wh(100%);
+    @include flex(flex-start,center);
+    padding: 1.8rem 0.5rem;
+    .wl {
+      position: relative;
+      height: 100%;
+      .cover-img {
+        height: 100%;
+      }
+      @include headsetBar();
+    }
+    .wr {
+      z-index: 2;
+      height: 100%;
+      padding-left: 0.5rem;
+      .name {
+        @include cs(#fff,0.5rem);
+      }
+      .creator {
+        @include flex(flex-start,center);
+        padding-top: 0.4rem;
+        .avatar {
+          width: 0.8rem;
+          border-radius: 50%;
+        }
+        .nickname {
+          padding-left: 0.2rem;
+          @include cs(#ddd,0.4rem);
+        }
+      }
+    }
+  }
+  .detail {
+    position: absolute;
+    @include wh(100%,1.5rem);
+    bottom: 0;
+    @include flex(space-around,center);
+    .detail-item {
+      @include flex(center,center,column);
+
+      .iconfont {
+        @include cs(#fff,0.65rem);
+      }
+      span {
+        @include cs(#fff,0.35rem);
+      }
+    }
+  }
+}
+//播放列表
+.playlist{
+    width:100%;
+    .title{
+        background:#eee;
+        @include cs(#333,.4rem);
+        line-height: .8rem;
+        padding-left: .2rem;
+    }
+    .list{
+        width:100%;
+        .item{
+            position: relative;
+            @include wh(100%,1.5rem);
+            @include flex(flex-start,center);
+            background: #fff;
+            .index{
+                flex-basis: 15%;
+                height: 100%;
+                @include flex(center,center);
+            }
+            .text{
+                @include wh(85%,100%);
+                @include flex(center,flex-start,column);
+                border-bottom: 1px solid #eee;
+                .name{
+                    width:85%;
+                    @include ellipise();
+                }
+                .ar-name{                  
+                    width:85%;
+                    @include ellipise();                    
+                    @include cs(#aaa,.35rem);
+                }
+            }
+            .iconfont{
+                position: absolute;
+                right: .5rem;
+                top:50%;
+                transform: translateY(-50%);
+                -webkit-transform: translateY(-50%);
+            }
+        }
+    }
+}
 
 </style>
