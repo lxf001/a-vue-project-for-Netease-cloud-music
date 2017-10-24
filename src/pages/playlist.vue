@@ -1,6 +1,6 @@
 <template>
     <div>
-        <section class="header" ></section>
+        <transparentH title="歌单" :subTitle="playlist.tags.join(' ')"></transparentH>    
         <section class="cover" >
             <div class="background" :style="`background-image:url('${playlist.coverImgUrl}')`"></div>
             <div class="cover-wrap">
@@ -37,19 +37,20 @@
                 歌曲列表
             </h5>
             <ul class="list">
-                <li class="item" v-for="(item,index) in playlist.tracks" :key="index">
+                <router-link tag="li" class="item" v-for="(item,index) in playlist.tracks" :key="index" :to="`/song/${item.id}`">
                     <div class="index">{{index+1}}</div>
                     <div class="text">
                         <p class="name">{{item.name}}</p>
                         <p class="ar-name">{{item.ar[0].name+' - '+item.al.name}}</p>
                     </div>
                     <i class="iconfont icon-play1"></i>
-                </li>
+                </router-link>
             </ul>
         </section>
     </div>
 </template>
 <script>
+import transparentH from "comp/thead.vue";
 import { getPlaylistDetail, getMusicUrl, getMusic } from "config/fetch";
 import { mapActions } from "vuex";
 export default {
@@ -61,21 +62,24 @@ export default {
       urls: []
     };
   },
+  components: {
+    transparentH
+  },
   props: ["id"],
   mounted() {
     this.init();
   },
   methods: {
     async init() {
-      this.setLoading(true);
       await this.getPlaylistDetail();
       let ids = this.playlist.trackIds.map(x => x.id);
       await this.getMusicUrl(ids);
-      this.setLoading(false); 
+      this.setLoading(false);
     },
     async getPlaylistDetail() {
       try {
         let res = await getPlaylistDetail(this.id);
+        console.log(1111, res);
         this.playlist = res.code === 200 ? res.playlist : {};
       } catch (e) {
         console.log("getPlaylistDetail", e);
@@ -164,49 +168,48 @@ export default {
   }
 }
 //播放列表
-.playlist{
-    width:100%;
-    .title{
-        background:#eee;
-        @include cs(#333,.4rem);
-        line-height: .8rem;
-        padding-left: .2rem;
-    }
-    .list{
-        width:100%;
-        .item{
-            position: relative;
-            @include wh(100%,1.5rem);
-            @include flex(flex-start,center);
-            background: #fff;
-            .index{
-                flex-basis: 15%;
-                height: 100%;
-                @include flex(center,center);
-            }
-            .text{
-                @include wh(85%,100%);
-                @include flex(center,flex-start,column);
-                border-bottom: 1px solid #eee;
-                .name{
-                    width:85%;
-                    @include ellipise();
-                }
-                .ar-name{                  
-                    width:85%;
-                    @include ellipise();                    
-                    @include cs(#aaa,.35rem);
-                }
-            }
-            .iconfont{
-                position: absolute;
-                right: .5rem;
-                top:50%;
-                transform: translateY(-50%);
-                -webkit-transform: translateY(-50%);
-            }
+.playlist {
+  width: 100%;
+  .title {
+    background: #eee;
+    @include cs(#333,0.4rem);
+    line-height: 0.8rem;
+    padding-left: 0.2rem;
+  }
+  .list {
+    width: 100%;
+    .item {
+      position: relative;
+      @include wh(100%,1.5rem);
+      @include flex(flex-start,center);
+      background: #fff;
+      .index {
+        flex-basis: 15%;
+        height: 100%;
+        @include flex(center,center);
+      }
+      .text {
+        @include wh(85%,100%);
+        @include flex(center,flex-start,column);
+        border-bottom: 1px solid #eee;
+        .name {
+          width: 85%;
+          @include ellipise();
         }
+        .ar-name {
+          width: 85%;
+          @include ellipise();
+          @include cs(#aaa,0.35rem);
+        }
+      }
+      .iconfont {
+        position: absolute;
+        right: 0.5rem;
+        top: 50%;
+        transform: translateY(-50%);
+        -webkit-transform: translateY(-50%);
+      }
     }
+  }
 }
-
 </style>

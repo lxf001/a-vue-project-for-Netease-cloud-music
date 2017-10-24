@@ -5,6 +5,7 @@
     <mu-bottom-nav-item value="favorites" title="Favorites" icon="favorite"/>
     <mu-bottom-nav-item value="nearby" title="Nearby" icon="location_on"/>
   </mu-bottom-nav>
+  <mu-slider v-model="value1" class="demo-slider" color="red"/>
 </mu-paper>
 </template>
 

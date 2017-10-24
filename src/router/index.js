@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import index from 'pages/index'
 import music from 'pages/music'
 import playlist from 'pages/playlist'
+import song from 'pages/song'
 
 
 Vue.use(Router)
@@ -34,6 +35,14 @@ export default new Router({
       meta: {
         needHead: false,
         alive:false
+      },
+      props:true
+    },
+    {
+      path:'/song/:id',
+      name:'song',
+      component:song,
+      meta:{
       },
       props:true
     }

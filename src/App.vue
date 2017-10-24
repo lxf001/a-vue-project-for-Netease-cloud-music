@@ -29,7 +29,7 @@ export default {
   },
   components: {
     playBar,
-    h
+    h,
   },
   mounted() {},
   computed: {
