@@ -5,7 +5,14 @@ import actions from './actions'
 import getters from './getters'
 
 const state = {
-  loading:true
+  loading:false,
+  playStatus:false,
+  listStatus:false,
+  tracks:[],
+  duration:0,
+  currentTime:0,
+  lyric:'',
+  url:''
 }
 
 Vue.use(Vuex)
