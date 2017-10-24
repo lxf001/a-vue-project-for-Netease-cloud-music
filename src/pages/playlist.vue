@@ -1,5 +1,6 @@
 <template>
     <div>
+      
         <section class="header" ></section>
         <section class="cover" >
             <div class="background" :style="`background-image:url('${playlist.coverImgUrl}')`"></div>
@@ -29,8 +30,8 @@
                 <div class="detail-item">
                     <i class="iconfont icon-share"></i>
                     <span>{{playlist.shareCount}}</span>
-                </div>   
-            </div>  
+                </div>
+            </div>
         </section>
         <section class="playlist">
             <h5 class="title">
@@ -47,6 +48,7 @@
                 </li>
             </ul>
         </section>
+
     </div>
 </template>
 <script>
@@ -71,7 +73,7 @@ export default {
       await this.getPlaylistDetail();
       let ids = this.playlist.trackIds.map(x => x.id);
       await this.getMusicUrl(ids);
-      this.setLoading(false); 
+      this.setLoading(false);
     },
     async getPlaylistDetail() {
       try {
@@ -192,9 +194,9 @@ export default {
                     width:85%;
                     @include ellipise();
                 }
-                .ar-name{                  
+                .ar-name{
                     width:85%;
-                    @include ellipise();                    
+                    @include ellipise();
                     @include cs(#aaa,.35rem);
                 }
             }

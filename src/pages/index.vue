@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="wrapper">
     <!--轮播-->
     <el-carousel trigger="click" indicator-position="none" height="4.8rem">
       <el-carousel-item v-for="item in bannerData" :key="item.id">
@@ -8,6 +8,7 @@
         </a>
       </el-carousel-item>
     </el-carousel>
+
 
     <!--推荐歌单-->
     <div class="content">
@@ -33,7 +34,7 @@
         <div class="item one-third" v-for="item in highQualityData" :key="item.id">
           <img v-lazy="item.coverImgUrl" alt="">
           <span class="tag" v-if="item.highQuality">精品</span>
-          <i class="iconfont icon-headset">{{numConversion(item.playCount)}}</i>                    
+          <i class="iconfont icon-headset">{{numConversion(item.playCount)}}</i>
           <p>{{item.name}}</p>
         </div>
       </div>
@@ -131,7 +132,10 @@
 </script>
 <style lang="scss" scoped>
 @import "../assets/style/mixin.scss";
-
+.wrapper{
+  position: relative;
+  z-index: 1;
+}
 .banner-pic {
   @include wh(100%, 4.8rem);
 }

@@ -5,19 +5,23 @@ import App from './App'
 import router from './router'
 import store from './store'
 import vueLazyload from 'vue-lazyload'
-import ElementUI from 'element-ui'
 
 import MuseUI from 'muse-ui'
 import 'muse-ui/dist/muse-ui.css'
+import VueAgile from 'vue-agile'
+
+Vue.use(VueAgile)
 Vue.use(MuseUI)
 
+import { Carousel,CarouselItem} from 'element-ui'
+Vue.use(Carousel)
+Vue.use(CarouselItem)
 import '@/config/rem'
 import './assets/style/common.scss'
 
 
 
 Vue.config.productionTip = false
-Vue.use(ElementUI)
 
 Vue.use(vueLazyload, {
   preLoad: 1.1,

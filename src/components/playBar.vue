@@ -21,7 +21,7 @@
     <transition name="list">
       <ul class="list" v-show="list">
         <li class="title">{{'播放列表'}}</li>
-        <li class="item" v-for="n in 8">我是你的<span class="artist">&nbsp- 孙燕姿</span> <i class="iconfont icon-delete"></i>
+        <li class="item" v-for="n in 20">我是你的<span class="artist">&nbsp- 孙燕姿</span> <i class="iconfont icon-delete"></i>
         </li>
 
       </ul>
@@ -52,16 +52,14 @@
 </script>
 <style lang="scss" scoped>
   @import '../assets/style/mixin.scss';
-.wrapper{
-  position: relative;
-  z-index: 99;
-}
-  .placeholder {
-    @include wh(100%, $h);
+
+  .wrapper {
+    position: relative;
+    z-index: 99;
   }
 
-  body {
-    z-index: 1;
+  .placeholder {
+    @include wh(100%, $h);
   }
 
   .mask {
@@ -70,8 +68,8 @@
     background: rgba(0, 0, 0, .77);
     top: 0;
     bottom: 0;
-    left:0;
-    right:0;
+    left: 0;
+    right: 0;
     z-index: 99;
   }
 
@@ -81,9 +79,9 @@
     bottom: 0;
     @include wh(100%, $h);
     background: #fff;
-    -webkit-box-shadow:  1px -1px 10px $gray;
-    -moz-box-shadow:  1px -1px 10px $gray;
-    box-shadow:  1px -1px 10px $gray;
+    -webkit-box-shadow: 1px -1px 10px $gray;
+    -moz-box-shadow: 1px -1px 10px $gray;
+    box-shadow: 1px -1px 10px $gray;
     overflow: hidden;
     @include flex(space-between, center);
 
@@ -98,7 +96,7 @@
     }
 
     .btn {
-      @include flex(space-between,center);
+      @include flex(space-between, center);
       .iconfont {
         @include cs($red, 1rem);
         padding: .2rem;
@@ -113,6 +111,7 @@
     z-index: 999;
     @include wh(100%, 10rem);
     background: #fff;
+    overflow: scroll;
     li {
       border-bottom: 1px solid #eee;
       @include cs(#000, .45rem)
