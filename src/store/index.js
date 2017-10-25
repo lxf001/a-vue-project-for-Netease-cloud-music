@@ -12,7 +12,10 @@ const state = {
   duration:0,
   currentTime:0,
   lyric:'',
-  url:''
+  url:'',
+
+  list:[],
+  listShow:false
 }
 
 Vue.use(Vuex)

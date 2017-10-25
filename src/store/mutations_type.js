@@ -1,2 +1,3 @@
 export const
-  LOADING = 'LOADING'
+  LOADING = 'LOADING',
+  LIST_SHOW = 'LIST_SHOW'

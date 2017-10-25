@@ -44,5 +44,7 @@ export const
   getMusicUrl = (id) => fetch1('/music/url', { id: id.join(',') }),//获取url,id为[]
 
   // getLyric = (id) => fetch1('lyric', { id })//获取歌词
-  getLyric = (id) => fetch2('lyric', id)
+  getLyric = (id) => fetch2('lyric', id),
+
+  getSong = (id) => fetch1('song/detail',{ids:id})//获取歌曲详情，不包括url
   

@@ -14,13 +14,14 @@
         <router-view v-if="!$route.meta.alive" class="router"/>
     </transition>
     <play-bar></play-bar>
-
+    <list></list>
   </div>
 </template>
 
 <script>
 import playBar from "comp/playBar";
 import h from "comp/head.vue";
+import list from "comp/list";
 import { mapState } from "vuex";
 export default {
   name: "app",
@@ -30,6 +31,7 @@ export default {
   components: {
     playBar,
     h,
+    list
   },
   mounted() {},
   computed: {

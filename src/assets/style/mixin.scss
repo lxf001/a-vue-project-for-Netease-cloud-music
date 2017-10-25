@@ -2,6 +2,11 @@ $red: rgb(211,58,49);
 $gray: rgb(128,128,128);
 $pink:rgb(229,137,131);
 $h: 1.5rem;
+$z1:1;
+$z2:9;
+$z3:99;
+$z4:99;
+
 @mixin cs($color,$size){
     color:$color;
     font-size:$size;
