@@ -1,6 +1,6 @@
 <template>
     <div>
-        <transparentH title="歌单" :subTitle="playlist.tags.join(' ')"></transparentH>
+        <transparentH title="歌单" :underTitle="playlist.name" :subTitle="playlist.tags.join(' ')"></transparentH>
         <section class="cover" >
             <div class="background" :style="`background-image:url('${playlist.coverImgUrl}')`"></div>
             <div class="cover-wrap">
@@ -57,7 +57,8 @@ export default {
   data() {
     return {
       playlist: {
-        creator: {}
+        creator: {},
+        tags:[]
       },
       urls: []
     };

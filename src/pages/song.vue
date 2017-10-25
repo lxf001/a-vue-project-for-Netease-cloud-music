@@ -1,16 +1,21 @@
 <template>
 <div>
+  <transparentHead :title="123"></transparentHead>
     <mu-slider v-model="value1" class="demo-slider" color="red"/>
 </div>
 
 </template>
 <script>
+  import transparentHead from 'comp/thead'
 import { getLyric } from "config/fetch";
 export default {
   data() {
     return {
       value1: 1
     };
+  },
+  components:{
+    transparentHead
   },
   props: ["id"],
   mounted() {
@@ -20,7 +25,6 @@ export default {
     getLyric() {
       try {
         let res = getLyric(this.id);
-        console.log(123, res);
       } catch (e) {
         console.log('getLyric',e)
       }
