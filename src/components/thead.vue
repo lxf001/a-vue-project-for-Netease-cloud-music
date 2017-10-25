@@ -21,7 +21,7 @@ export default {
   @include wh(100%,$h);
   @include flex(flex-start,center);
   position: fixed;
-  z-index: 999;
+  z-index: $z2;
   top: 0;
   background: transparent;
   &::after {

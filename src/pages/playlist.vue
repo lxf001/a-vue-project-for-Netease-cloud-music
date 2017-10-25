@@ -57,7 +57,8 @@ export default {
   data() {
     return {
       playlist: {
-        creator: {}
+        creator: {},
+        tags:[]
       },
       urls: []
     };
