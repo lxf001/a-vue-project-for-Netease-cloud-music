@@ -13,7 +13,7 @@
     <transition name="router">
         <router-view v-if="!$route.meta.alive" class="router"/>
     </transition>
-    <play-bar></play-bar>
+    <play-bar v-show="!$route.meta.closeBar"></play-bar>
     <list></list>
   </div>
 </template>

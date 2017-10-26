@@ -51,14 +51,14 @@
 </template>
 <script>
 import transparentH from "comp/thead.vue";
-import { getPlaylistDetail, getMusicUrl, getMusic} from "config/fetch";
+import { getPlaylistDetail, getMusicUrl, getMusic } from "config/fetch";
 import { mapActions } from "vuex";
 export default {
   data() {
     return {
       playlist: {
         creator: {},
-        tags:[]
+        tags: []
       },
       urls: []
     };
@@ -98,12 +98,19 @@ export default {
         type: "success"
       });
     },
-    routerGo(item){
+    routerGo(item) {
       this.setCurrentSong(item);
+      this.$router.push({
+        name: "song"
+      });
     },
-    ...mapActions(["setLoading","setCurrentSong"])
+    ...mapActions(["setLoading", "setCurrentSong"])
   },
-  computed: {}
+  computed: {},
+  // beforeRouteLeave(to, from, next) {
+  //   from.meta.alive = false;
+  //   next();
+  // }
 };
 </script>
 <style lang="scss" scoped>

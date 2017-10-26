@@ -32,8 +32,9 @@ export default {
   //设置当前播放音乐
   SET_CURRENTSONG(state,payload){
     state.currentSong = payload;
+    state.playStatus = false;
   },
-  togglePlayStatus(state){
+  togglePlayStatus(state,payload){
     state.playStatus = ! state.playStatus;
   }
 }

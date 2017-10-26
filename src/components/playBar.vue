@@ -14,12 +14,12 @@
 
       <div class="btn">
         <i class="iconfont icon-list" @click="toggleList"></i>
-        <i class="iconfont" :class="iconStatus?'icon-pause':'icon-play'" @click="toggleStatus"></i>
+        <i class="iconfont" :class="iconStatus?'icon-pause':'icon-play'" @click="togglePlayStatus"></i>
         <i class="iconfont icon-next"></i>
       </div>
     </div>
 
-    <audio :src="currentSong.url" ref="audio"></audio>
+    <audio :src="currentSong.url" ref="audio" @canplay="togglePlayStatus"></audio>
   </div>
 </template>
 <script>
@@ -32,10 +32,6 @@ export default {
   },
   mounted() {},
   methods: {
-    toggleStatus() {
-      this.iconStatus = !this.iconStatus;
-      this.togglePlayStatus();
-    },
     toggleList() {
       this.toggleListShow();
       console.log("toggleList", this.listShow);
@@ -49,8 +45,10 @@ export default {
     playStatus(status) {
       if (status === true) {
         this.$refs.audio.play();
+        this.iconStatus = true;
       } else {
         this.$refs.audio.pause();
+        this.iconStatus = false;        
       }
     }
   }
