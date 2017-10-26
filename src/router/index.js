@@ -36,13 +36,14 @@ export default new Router({
         needHead: false,
         alive:false
       },
-      props:true
+      props:true,
     },
     {
-      path:'/song/:id',
+      path:'/song',
       name:'song',
       component:song,
       meta:{
+        closeBar:true
       },
       props:true
     }

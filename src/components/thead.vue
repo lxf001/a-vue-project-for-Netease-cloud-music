@@ -9,10 +9,11 @@
 </template>
 <script>
   export default {
+    name:'thead',
     data() {
       return {
         opacity:0,
-        comTitle:''
+        comTitle:this.title
       };
     },
     props: ["title", "subTitle", "underTitle"],
