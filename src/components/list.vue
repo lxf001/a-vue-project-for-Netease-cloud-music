@@ -2,7 +2,7 @@
       <transition name="list">
       <ul class="list" v-show="listShow">
         <li class="title">{{'播放列表'}}</li>
-        <li class="item" v-for="n in 8" :key="n">我是你的<span class="artist">&nbsp- 孙燕姿</span> <i class="iconfont icon-delete"></i>
+        <li class="item" v-for="n in list" :key="n.id">{{n.name}}<span class="artist">&nbsp- {{n.artist}}</span> <i class="iconfont icon-delete"></i>
         </li>
       </ul>
     </transition>
@@ -17,7 +17,8 @@ export default {
   },
   computed:{
     ...mapState([
-      'listShow'
+      'listShow',
+      'list'
     ])
   }
 }

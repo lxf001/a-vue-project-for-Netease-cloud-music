@@ -5,7 +5,7 @@
       <div class="mask" @touchmove.prevent @wheelDelta.prevent @click="toggleList" v-show="listShow"></div>
     </transition>
     <div class="playBar">
- 
+
         <img v-lazy="currentSong.cover" height="468" width="468"/>
         <div>
           <p class="ellipsis name">{{currentSong.name}}</p>
@@ -19,7 +19,7 @@
       </div>
     </div>
 
-    <audio :src="currentSong.url" ref="audio"></audio>
+    <audio :src="currentSong.url" ref="audio" @ended="toggleStatus" ></audio>
   </div>
 </template>
 <script>
@@ -49,9 +49,16 @@ export default {
     playStatus(status) {
       if (status === true) {
         this.$refs.audio.play();
+        this.iconStatus = true;
       } else {
         this.$refs.audio.pause();
+        this.iconStatus = false;
+
       }
+    },
+    currentSong(song){
+
+
     }
   }
 };
