@@ -51,7 +51,7 @@
 </template>
 <script>
 import transparentH from "comp/thead.vue";
-import { getPlaylistDetail, getMusicUrl, getMusic } from "config/fetch";
+import { getPlaylistDetail, getMusicUrl, getMusic} from "config/fetch";
 import { mapActions } from "vuex";
 export default {
   data() {
@@ -73,14 +73,11 @@ export default {
   methods: {
     async init() {
       await this.getPlaylistDetail();
-      let ids = this.playlist.trackIds.map(x => x.id);
-      await this.getMusicUrl(ids);
       this.setLoading(false);
     },
     async getPlaylistDetail() {
       try {
         let res = await getPlaylistDetail(this.id);
-        console.log(1111, res);
         this.playlist = res.code === 200 ? res.playlist : {};
       } catch (e) {
         console.log("getPlaylistDetail", e);
@@ -102,9 +99,9 @@ export default {
       });
     },
     routerGo(item){
-      this.playSong(item);
+      this.setCurrentSong(item);
     },
-    ...mapActions(["setLoading","playSong"])
+    ...mapActions(["setLoading","setCurrentSong"])
   },
   computed: {}
 };

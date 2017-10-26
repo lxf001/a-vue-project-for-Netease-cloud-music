@@ -3,10 +3,10 @@ import Vuex from 'vuex'
 import mutations from './mutations'
 import actions from './actions'
 import getters from './getters'
-
+import initMusic from '../assets/music/init.mp3'
 const state = {
   loading:false,
-  playStatus:false,
+ 
   listStatus:false,
   tracks:[],
   duration:0,
@@ -14,13 +14,16 @@ const state = {
   lyric:'',
   url:'',
 
+  playStatus:false,
   list:[],
   listShow:false,
   currentSong:{
-    cover:'',
-    url:'',
+    name: "イエスタデイ・ワンス・モア (カーペンターズ)",
+    id:868830,
+    cover:"http://p1.music.126.net/UmHoklpGmQCaUbkC18dEIQ==/880708813848823.jpg",
+    url:initMusic,
     lyric:'',
-    artist:'',
+    artist:'陈奕迅',
     album:''
   },
   index:0
