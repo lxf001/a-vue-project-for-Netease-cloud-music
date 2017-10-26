@@ -41,10 +41,16 @@ export const
   // getPlaylistDetail = (id) => fetch1('/playlist/detail', { id }),//歌单详情
   getPlaylistDetail = (id) => fetch2('playlist',id),
 
-  getMusicUrl = (id) => fetch1('/music/url', { id: id.join(',') }),//获取url,id为[]
+  getMusicUrl = (id) => {//获取url,id为[]
+    if(Object.prototype.toString.call(id)==="[object Array]"){
+      return fetch1('/music/url', { id: id.join(',') });
+    }else{
+      return fetch1('/music/url', { id });
+    }
+
+  },
 
   // getLyric = (id) => fetch1('lyric', { id })//获取歌词
   getLyric = (id) => fetch2('lyric', id),
 
   getSong = (id) => fetch1('song/detail',{ids:id})//获取歌曲详情，不包括url
-  

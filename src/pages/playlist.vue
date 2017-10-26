@@ -37,14 +37,14 @@
                 歌曲列表
             </h5>
             <ul class="list">
-                <router-link tag="li" class="item" v-for="(item,index) in playlist.tracks" :key="index" :to="`/song/${item.id}`">
+                <li class="item" v-for="(item,index) in playlist.tracks" :key="index" :to="`/song/${item.id}`" @click="routerGo(item)">
                     <div class="index">{{index+1}}</div>
                     <div class="text">
                         <p class="name">{{item.name}}</p>
                         <p class="ar-name">{{item.ar[0].name+' - '+item.al.name}}</p>
                     </div>
                     <i class="iconfont icon-play1"></i>
-                </router-link>
+                </li>
             </ul>
         </section>
     </div>
@@ -101,7 +101,10 @@ export default {
         type: "success"
       });
     },
-    ...mapActions(["setLoading"])
+    routerGo(item){
+      this.playSong(item);
+    },
+    ...mapActions(["setLoading","playSong"])
   },
   computed: {}
 };

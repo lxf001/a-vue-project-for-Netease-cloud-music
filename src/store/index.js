@@ -15,7 +15,15 @@ const state = {
   url:'',
 
   list:[],
-  listShow:false
+  listShow:false,
+  currentSong:{
+    cover:'',
+    url:'',
+    lyric:'',
+    artist:'',
+    album:''
+  },
+  index:0
 }
 
 Vue.use(Vuex)
