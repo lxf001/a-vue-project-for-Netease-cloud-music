@@ -2,8 +2,9 @@
   <div class="head" :style="`background:rgba(211,58,49,${opacity})`">
     <i @click="goBack" class="iconfont icon-back"></i>
     <div class="text">
-      <h2 class="title">{{this.comTitle}}</h2>
-      <h3 class="sub-title">{{this.subTitle}}</h3>
+      <h2 class="title ellipsis" v-show="!tittleToggle">{{this.underTitle}}</h2>      
+      <h2 class="title ellipsis" v-show="tittleToggle">{{this.title}}</h2>
+      <h3 class="sub-title ellipsis">{{this.subTitle}}</h3>
     </div>
   </div>
 </template>
@@ -13,7 +14,7 @@
     data() {
       return {
         opacity:0,
-        comTitle:this.title
+        tittleToggle:true
       };
     },
     props: ["title", "subTitle", "underTitle"],
@@ -21,9 +22,9 @@
       window.onscroll = () => {
         var opa = window.pageYOffset / 250
         if (opa > 0.5) {
-          this.comTitle = this.underTitle;
+          this.tittleToggle = false;
         } else {
-          this.comTitle = this.title;
+          this.tittleToggle = true;
         }
         this.opacity = window.pageYOffset / 250
       }
@@ -42,7 +43,7 @@
     @include wh(100%, $h);
     @include flex(flex-start, center);
     position: fixed;
-    z-index: 999;
+    z-index: $z3;
     top: 0;
     &::after {
       content: "";
@@ -64,9 +65,11 @@
       @include flex(center, flex-start, column);
       .title {
         @include cs(#fff, .45rem);
+        width: 70%;
       }
       .sub-title {
         @include cs(#ddd, .25rem);
+        width: 70%;        
       }
     }
   }

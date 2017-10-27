@@ -1,9 +1,7 @@
 <template>
   <div class="wrapper">
     <div class="placeholder"></div>
-    <transition name="mask">
-      <div class="mask" @touchmove.prevent @wheelDelta.prevent @click="toggleList" v-show="listShow"></div>
-    </transition>
+
     <div class="playBar">
 
         <img v-lazy="currentSong.cover" height="468" width="468"/>
@@ -13,17 +11,16 @@
         </router-link>
 
       <div class="btn">
+        <i class="iconfont" :class="iconStatus?'icon-pause':'icon-play'" @click="togglePlayStatus"></i>
         <i class="iconfont icon-list" @click="toggleList"></i>
-        <i class="iconfont" :class="iconStatus?'icon-pause':'icon-play'" @click="togglePlayStatus(true)"></i>
-        <i class="iconfont icon-next"></i>
       </div>
     </div>
 
-    <audio id= "audio" :src="currentSong.url" ref="audio" @canplay="play" @timeupdate="setCur"  @durationchange="setDur"></audio>
+    <audio id= "audio" :src="currentSong.url" ref="audio" @canplay="play" @timeupdate="setCur"  @durationchange="setDur" autoplay></audio>
   </div>
 </template>
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapState, mapMutations,mapActions } from "vuex";
 export default {
   data() {
     return {
@@ -34,7 +31,6 @@ export default {
   methods: {
     toggleList() {
       this.toggleListShow();
-      console.log("toggleList", this.listShow);
     },
     setCur(){
       this.setCurrentTime(this.$refs.audio.currentTime)
@@ -42,10 +38,12 @@ export default {
     setDur(){
       this.setDuration(this.$refs.audio.duration)
     },
-    ...mapMutations(["toggleListShow", "togglePlayStatus","setCurrentTime","setDuration","play"])
+
+    ...mapMutations(["toggleListShow", "togglePlayStatus","setCurrentTime","setDuration","play"]),
+
   },
   computed: {
-    ...mapState(["listShow", "currentSong", "playStatus","currentTime"])
+    ...mapState(["listShow", "currentSong", "playStatus","currentTime","index"])
   },
   watch: {
     playStatus(status) {
@@ -57,8 +55,7 @@ export default {
         this.iconStatus = false;
       }
     },
-
-  }
+  },
 };
 </script>
 <style lang="scss" scoped>
@@ -75,16 +72,7 @@ body {
   z-index: 1;
 }
 
-.mask {
-  position: fixed;
 
-  background: rgba(0, 0, 0, 0.77);
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: $z3;
-}
 
 .playBar {
   position: fixed;
@@ -99,10 +87,11 @@ body {
   @include flex(space-between, center);
   img {
     @include wh(1.2rem);
-    margin: 0 0.1rem;
+    margin: 0 0.15rem;
   }
   .text {
     width: 45%;
+    margin-right: auto;
     .ellipsis {
       width: 100%;
     }
@@ -113,7 +102,7 @@ body {
 
   .btn {
     @include flex(space-between,center);
-    flex-basis: 35%;
+    flex-basis: 22%;
     margin-right: .3rem;
     .iconfont {
       @include cs($red, 1rem);
@@ -121,13 +110,5 @@ body {
   }
 }
 
-.mask-enter,
-.mask-leave-to {
-  opacity: 0;
-}
 
-.mask-enter-active,
-.mask-leave-active {
-  transition: opacity 0.3s;
-}
 </style>

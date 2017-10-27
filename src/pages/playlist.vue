@@ -52,15 +52,14 @@
 <script>
 import transparentH from "comp/thead.vue";
 import { getPlaylistDetail, getMusicUrl, getMusic } from "config/fetch";
-import { mapActions } from "vuex";
+import { mapActions, mapState, mapMutations } from "vuex";
 export default {
   data() {
     return {
       playlist: {
         creator: {},
         tags: []
-      },
-      urls: []
+      }
     };
   },
   components: {
@@ -68,33 +67,40 @@ export default {
   },
   props: ["id"],
   mounted() {
-    this.init();
+    if (this.$route.params.fetch) {
+      this.init();
+    } else {
+      if (this.playStorage.length !== 0) {
+        this.playlist = this.playStorage;
+      } else {
+        this.init();
+      }
+    }
   },
   methods: {
     async init() {
-      await this.getPlaylistDetail();
-      this.setLoading(false);
-    },
-    async getPlaylistDetail() {
+      this.setLoading(true);
       try {
         let res = await getPlaylistDetail(this.id);
         this.playlist = res.code === 200 ? res.playlist : {};
 
         //获取url的集合
-        let ids = this.playlist.trackIds.map(x=>x.id);
-        res =  await getMusicUrl(ids);
-        let urls = res.code === 200? res.data:[];
-       
-       //将对应的id添加到tracks中对应的歌曲中
-       this.playlist.tracks.map(x=>{
-         urls.forEach(element =>{
-           if(element.id === x.id){
-             x.url = element.url;
-           }
-         });
-         return x;
-       })
-        console.log(this.playlist.tracks[0])
+        let ids = this.playlist.trackIds.map(x => x.id);
+        res = await getMusicUrl(ids);
+        let urls = res.code === 200 ? res.data : [];
+        this.setLoading(false);
+
+        //将对应的id添加到tracks中对应的歌曲中
+        this.playlist.tracks.forEach(x => {
+          urls.forEach(element => {
+            if (element.id === x.id) {
+              x.url = element.url;
+            }
+          });
+        });
+
+        //将Playlist缓存起来
+        this.setPlayStorage(this.playlist);
       } catch (e) {
         console.log("getPlaylistDetail", e);
       }
@@ -107,17 +113,24 @@ export default {
     },
     routerGo(item) {
       this.pushList(item);
-      // this.$router.push({
-      //   name: "song"
-      // });
+      this.$router.push({
+        name: "song"
+      });
     },
-    ...mapActions(["setLoading", "pushList"])
+    ...mapMutations(["setPlayStorage", "setLoading", "pushList"])
   },
-  computed: {},
-  // beforeRouteLeave(to, from, next) {
-  //   from.meta.alive = false;
-  //   next();
-  // }
+  computed: {
+    ...mapState(["playStorage"])
+  },
+  beforeRouteEnter: (to, from, next) => {
+    if (from.name === "index") {
+      to.params.fetch = true;
+    } else {
+      this.playlist = this.tracks;
+      to.params.fetch = false;
+    }
+    next();
+  }
 };
 </script>
 <style lang="scss" scoped>

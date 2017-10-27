@@ -58,81 +58,86 @@
 
 </template>
 <script>
-  import {getBanner, getRecommendation, getPrivateContent, getHighQuality} from 'config/fetch'
-  import {mapActions} from 'vuex'
+import {
+  getBanner,
+  getRecommendation,
+  getPrivateContent,
+  getHighQuality
+} from "config/fetch";
+import { mapMutations } from "vuex";
 
-  export default {
-    data() {
-      return {
-        bannerData: [],
-        recommendationData: [],
-        privateCotentData: [],
-        highQualityData: [],
-
-      }
-    },
-    mounted() {
-      this.init();
-    },
-    methods: {
-      ...mapActions([
-        'setLoading'
-                  ]),
-      async init() {
-        try{
+export default {
+  data() {
+    return {
+      bannerData: [],
+      recommendationData: [],
+      privateCotentData: [],
+      highQualityData: []
+    };
+  },
+  mounted() {
+    this.init();
+  },
+  methods: {
+    ...mapMutations(["setLoading"]),
+    async init() {
+      try {
         await this.getBanner();
         await this.getRecommendation();
         await this.getPrivateContent();
-        await this.getHighQuality('华语');
-        }catch(e){
-        }
+        await this.getHighQuality("华语");
         this.setLoading(false);
-      },
-      async getBanner() {
-        try {
-          let res = await getBanner();
-          this.bannerData = res.code === 200 ? res.banners : [];
-        } catch (e) {
-          console.log('getBanner', e);
-        }
-      },
-      async getRecommendation() {
-        try {
-          let res = await getRecommendation();
-          this.recommendationData = res.code === 200 ? res.result : [];
-        } catch (e) {
-          console.log('getRecommendation', e);
-        }
-      },
-      async getPrivateContent() {
-        try {
-          let res = await getPrivateContent();
-          this.privateCotentData = res.code === 200 ? res.result : [];
-        } catch (e) {
-          console.log('getPrivateContent', e);
-        }
-      },
-      async getHighQuality(cat) {
-        try {
-          let res = await getHighQuality(6, cat);
-          this.highQualityData = res.code === 200 ? res.playlists : [];
-        } catch (e) {
-          console.log('getHighQuality', e);
-        }
-      },
-      numConversion(num){
-        if(num>10000){
-          return Math.ceil(num/10000) +'万'
-        }
-        return num;
+      } catch (e) {}
+      this.setLoading(false);
+    },
+    async getBanner() {
+      try {
+        let res = await getBanner();
+        this.bannerData = res.code === 200 ? res.banners : [];
+      } catch (e) {
+        console.log("getBanner", e);
       }
     },
-    computed: {},
+    async getRecommendation() {
+      try {
+        let res = await getRecommendation();
+        this.recommendationData = res.code === 200 ? res.result : [];
+      } catch (e) {
+        console.log("getRecommendation", e);
+      }
+    },
+    async getPrivateContent() {
+      try {
+        let res = await getPrivateContent();
+        this.privateCotentData = res.code === 200 ? res.result : [];
+      } catch (e) {
+        console.log("getPrivateContent", e);
+      }
+    },
+    async getHighQuality(cat) {
+      try {
+        let res = await getHighQuality(6, cat);
+        this.highQualityData = res.code === 200 ? res.playlists : [];
+      } catch (e) {
+        console.log("getHighQuality", e);
+      }
+    },
+    numConversion(num) {
+      if (num > 10000) {
+        return Math.ceil(num / 10000) + "万";
+      }
+      return num;
+    }
+  },
+  computed: {},
+  beforeDestroy() {
+    console.log(123);
   }
+};
 </script>
 <style lang="scss" scoped>
 @import "../assets/style/mixin.scss";
-.wrapper{
+.wrapper {
   position: relative;
   z-index: 1;
 }

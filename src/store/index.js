@@ -5,14 +5,12 @@ import actions from './actions'
 import getters from './getters'
 import initMusic from '../assets/music/init.mp3'
 const state = {
-  loading:false,
+  loading:true,
  
   listStatus:false,
-  tracks:[],
+  playStorage:[],
   duration:0,
   currentTime:0,
-  lyric:'',
-  url:'',
 
   playStatus:false,
   list:[],
