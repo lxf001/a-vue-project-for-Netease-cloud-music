@@ -36,5 +36,14 @@ export default {
   },
   togglePlayStatus(state,payload){
     state.playStatus = ! state.playStatus;
+  },
+  setCurrentTime(state,payload){
+    state.currentTime = payload;
+    console.log('currentTime',state.currentTime);
+
+  },
+  setDuration(state,payload){
+    state.duration = payload;
+    console.log('duration',state.duration);
   }
 }

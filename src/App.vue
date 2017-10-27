@@ -4,15 +4,15 @@
       <mu-circular-progress :size="90" color="red"/>
     </div>
     <h v-if="$route.meta.needHead"></h>
-    <transition name="router">
+    <!--<transition name="router">-->
       <keep-alive  >
         <router-view v-if="$route.meta.alive" class="router"/>
       </keep-alive>
-    </transition>
+    <!--</transition>-->
 
-    <transition name="router">
+    <!--<transition name="router">-->
         <router-view v-if="!$route.meta.alive" class="router"/>
-    </transition>
+    <!--</transition>-->
     <play-bar v-show="!$route.meta.closeBar"></play-bar>
     <list></list>
   </div>

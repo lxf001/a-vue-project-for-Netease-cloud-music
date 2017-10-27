@@ -7,10 +7,10 @@
     <div class="playBar">
 
         <img v-lazy="currentSong.cover" height="468" width="468"/>
-        <div>
+        <router-link class="text" to="/song">
           <p class="ellipsis name">{{currentSong.name}}</p>
           <p class="ellipsis artist">{{currentSong.artist}}</p>
-        </div>
+        </router-link>
 
       <div class="btn">
         <i class="iconfont icon-list" @click="toggleList"></i>
@@ -19,7 +19,7 @@
       </div>
     </div>
 
-    <audio :src="currentSong.url" ref="audio" @canplay="togglePlayStatus"></audio>
+    <audio :src="currentSong.url" ref="audio" @canplay="togglePlayStatus" @timeupdate="setCur"  @durationchange="setDur"></audio>
   </div>
 </template>
 <script>
@@ -36,7 +36,13 @@ export default {
       this.toggleListShow();
       console.log("toggleList", this.listShow);
     },
-    ...mapMutations(["toggleListShow", "togglePlayStatus"])
+    setCur(){
+      this.setCurrentTime(this.$refs.audio.currentTime)
+    },
+    setDur(){
+      this.setDuration(this.$refs.audio.duration)
+    },
+    ...mapMutations(["toggleListShow", "togglePlayStatus","setCurrentTime","setDuration"])
   },
   computed: {
     ...mapState(["listShow", "currentSong", "playStatus"])
@@ -94,7 +100,7 @@ body {
     @include wh(1.2rem);
     margin: 0 0.1rem;
   }
-  div {
+  .text {
     width: 45%;
     .ellipsis {
       width: 100%;

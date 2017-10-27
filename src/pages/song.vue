@@ -1,85 +1,170 @@
 <template>
-<div class="margin-top">
-  <transparentHead title="歌单" subTitle="1q23" underTitle="ff"></transparentHead>
+  <div class="margin-top">
+    <transparentHead title="歌单" subTitle="1q23" underTitle="ff"></transparentHead>
     <div class="cover" :style="`background-image:url('${currentSong.cover}')`"></div>
-    
-    <div class="box">
+
+    <div class="box" :class="playStatus?'':'needle-up'">
       <div class="img-wrapper">
         <img :src="currentSong.cover" alt="">
       </div>
     </div>
-    <mu-slider v-model="value1" class="demo-slider" color="red"/>
-</div>
+    <div class="slider">
+      <span class="current-time">12:21</span>
+      <mu-slider v-model="time" class="demo-slider"/>
+      <span class="current-time">12:11</span>
+    </div>
+    <div class="play-control">
+      <i class="iconfont icon-singlecycle"></i>
+      <i class="iconfont icon-previous"></i>
+      <i class="iconfont icon-play1" :class="playStatus?'icon-pause':'icon-play4'" @click="togglePlayStatus"></i>
+      <i class="iconfont icon-next"></i>
+      <i class="iconfont icon-list"></i>
+    </div>
+  </div>
 
 </template>
 <script>
-import transparentHead from "comp/thead";
-import { getLyric } from "config/fetch";
-import { mapState, mapActions, mapMutations } from "vuex";
-export default {
-  data() {
-    return {
-      value1: 1
-    };
-  },
-  components: {
-    transparentHead
-  },
-  props: ["id"],
-  mounted() {},
-  methods: {
-    getLyric() {
-      try {
-        let res = getLyric(this.id);
-      } catch (e) {
-        console.log("getLyric", e);
+  import transparentHead from "comp/thead";
+  import {getLyric} from "config/fetch";
+  import {mapState, mapActions, mapMutations} from "vuex";
+
+  export default {
+    data() {
+      return {
+        time:this.currentTime
+      };
+    },
+    components: {
+      transparentHead
+    },
+    props: ["id"],
+    mounted() {
+    },
+    methods: {
+      getLyric() {
+        try {
+          let res = getLyric(this.id);
+        } catch (e) {
+          console.log("getLyric", e);
+        }
+      },
+      ...mapMutations([
+        "togglePlayStatus"
+      ])
+    },
+    computed: {
+      ...mapState(["currentSong", "playStatus","currentTime","duration"])
+    },
+    watch:{
+      time(v){
+        console.log(v)
       }
     }
-  },
-  computed: {
-    ...mapState(["currentSong"])
-  }
-  // beforeRouteLeave: (to, from, next) => {
-  //   to.meta.alive = true;
-  //   next();
-  //   console.log('leave2222222')
-  // }
-};
+    // beforeRouteLeave: (to, from, next) => {
+    //   to.meta.alive = true;
+    //   next();
+    //   console.log('leave2222222')
+    // }
+  };
 </script>
 <style lang="scss" scoped>
-@import "../assets/style/mixin.scss";
-.cover {
-   position: fixed;
-  @include zero();
-  @include blurBg();
-}
-.box {
-  position: relative;
-  width: 100%;
-  &::after{
-    content:'';
-    display: block;
-    position: absolute;
-    z-index: $z1;
-    background:url(../assets/needle.png)  no-repeat;
-    background-size: contain;
-    top:0;
-    left:4.5*$per;
-    @include wh(3*$per,3*1.43*$per);
+  @import "../assets/style/mixin.scss";
+
+  .cover {
+    position: fixed;
+    @include zero();
+    @include blurBg();
   }
-  .img-wrapper{
-    padding-top:3rem;
-    @include flex(center,center);
-    &::before{
+
+  .box {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    &::after {
       content: '';
+      display: block;
       position: absolute;
-      background:url(../assets/cd_wrapper.png);
+      z-index: $z1;
+      background: url(../assets/needle.png) no-repeat;
       background-size: contain;
-      @include wh(6rem);
+      top: -.2rem;
+      left: 4.5*$per;
+      transition: transform .3s;
+      transform-origin: .45*$per 0rem;
+      @include wh(3*$per, 3*1.43*$per);
     }
-    img{
-      @include wh(4rem);
+
+    .img-wrapper {
+      @include wh(8rem);
+      margin: 2.2rem auto;
+      @include flex(center, center);
+      transform-origin: 50% 50%;
+      animation-play-state: running;
+      -webkit-animation: cycle 6s linear infinite;
+      -o-animation: cycle 6s linear infinite;
+      animation: cycle 6s linear infinite;
+      &::before {
+        content: '';
+        position: absolute;
+        background: url(../assets/cd_wrapper.png);
+        background-size: contain;
+        @include wh(8rem);
+        top:0;
+        left: 0;
+      }
+      img {
+        @include wh(5.2rem);
+      }
+    }
+
+  }
+
+  .needle-up {
+    &::after {
+      -webkit-transform: rotate(-30deg);
+      -moz-transform: rotate(-30deg);
+      -ms-transform: rotate(-30deg);
+      -o-transform: rotate(-30deg);
+      transform: rotate(-30deg);
+    }
+    .img-wrapper {
+      animation-play-state: paused;
+
     }
   }
-}
+
+  @keyframes cycle {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .slider {
+    position: fixed;
+    bottom: 3rem;
+    width: 100%;
+    z-index: $z1;
+    padding: 0 .5rem;
+    @include flex(center, center);
+    .demo-slider {
+      margin: 0 .2rem;
+    }
+    span {
+      @include cs(#eee, .3rem);
+    }
+  }
+
+  .play-control {
+    position: fixed;
+    width: 100%;
+    z-index: $z1;
+    bottom: 1rem;
+    @include flex(space-around, center);
+    .iconfont {
+      @include cs(#eee, 1rem);
+    }
+  }
 </style>
