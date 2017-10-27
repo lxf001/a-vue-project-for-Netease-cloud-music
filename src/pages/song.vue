@@ -10,7 +10,7 @@
     </div>
     <div class="slider">
       <span class="current-time">12:21</span>
-      <mu-slider v-model="time" class="demo-slider"/>
+      <mu-slider v-model="percent" @change="setCur" class="demo-slider"/>
       <span class="current-time">12:11</span>
     </div>
     <div class="play-control">
@@ -31,7 +31,7 @@
   export default {
     data() {
       return {
-        time:this.currentTime
+        percent:this.currentTime
       };
     },
     components: {
@@ -39,25 +39,25 @@
     },
     props: ["id"],
     mounted() {
+      // setInterval(()=>{
+      //   console.log(1111,this.curTime,this.currentTime,(this.duration))
+      // },2000)
     },
     methods: {
-      getLyric() {
-        try {
-          let res = getLyric(this.id);
-        } catch (e) {
-          console.log("getLyric", e);
-        }
+      setCur(){
+        document.getElementById('audio').currentTime = this.percent*this.duration/100
+        // console.log(this.currentTime,this.playStaus)
       },
       ...mapMutations([
-        "togglePlayStatus"
+        "togglePlayStatus","setCurrentTime"
       ])
     },
     computed: {
-      ...mapState(["currentSong", "playStatus","currentTime","duration"])
+      ...mapState(["currentSong", "playStatus","currentTime","duration",])
     },
     watch:{
-      time(v){
-        console.log(v)
+      currentTime(v){
+        this.percent = v/this.duration*100;
       }
     }
     // beforeRouteLeave: (to, from, next) => {

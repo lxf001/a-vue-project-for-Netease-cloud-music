@@ -1,27 +1,23 @@
-import {
-  LOADING
-} from "./mutations_type";
-import {
-  getLyric,
-  getMusicUrl
-} from "../config/fetch";
+import {LOADING} from "./mutations_type";
+import {getLyric,  getMusicUrl} from "../config/fetch";
 
 export default {
-  setLoading({
-    commit,
-    state
-  }, payload) {
+  setLoading({    commit,    state  }, payload) {
     commit(LOADING, payload)
   },
-  async setCurrentSong({
-    commit,
-    state
-  }, payload) {
-    commit('PUSH_LIST', payload);
+  async pushList({    commit,    state  ,dispatch}, payload) {
+    commit('PUSH_LIST', payload); //同时改变了state.index
     if (!state.list.length) {
       return;
     }
-    //check if lyric exist
+    dispatch('setPlaysong')
+    console.log('currentSong', state.currentSong)
+    console.log('list', state.list)
+  },
+
+  
+  async setPlaysong({  state,  commit,  dispatch}) {
+    //检查lyric是否存在
     let indexSong = state.list[state.index],
       indexId = indexSong.id;
     if (!indexSong.lyric) {
@@ -36,22 +32,8 @@ export default {
         console.log('get indexsong lyric', e)
       }
     }
-    try {
-      let res = await getMusicUrl(indexId);
-      res = res.code === 200? res.data[0].url:'';
-      commit('SET_CURRENTSONG',{
-        url:res,
-        ...state.list[state.index]
-      })
-    }catch(e){
-      console.log('get currentsong url',e)
-    }
-    console.log('currentSong',state.currentSong)
-    console.log('list',state.list)
-    
-
-  },
-  // async setPlaysong({state,commit,dispatch},payload){
-
-  // }
+    commit('SET_CURRENTSONG', state.index);  
+  }
 }
+
+

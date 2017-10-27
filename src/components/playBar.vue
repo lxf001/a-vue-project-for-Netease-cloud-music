@@ -14,12 +14,12 @@
 
       <div class="btn">
         <i class="iconfont icon-list" @click="toggleList"></i>
-        <i class="iconfont" :class="iconStatus?'icon-pause':'icon-play'" @click="togglePlayStatus"></i>
+        <i class="iconfont" :class="iconStatus?'icon-pause':'icon-play'" @click="togglePlayStatus(true)"></i>
         <i class="iconfont icon-next"></i>
       </div>
     </div>
 
-    <audio :src="currentSong.url" ref="audio" @canplay="togglePlayStatus" @timeupdate="setCur"  @durationchange="setDur"></audio>
+    <audio id= "audio" :src="currentSong.url" ref="audio" @canplay="play" @timeupdate="setCur"  @durationchange="setDur"></audio>
   </div>
 </template>
 <script>
@@ -42,10 +42,10 @@ export default {
     setDur(){
       this.setDuration(this.$refs.audio.duration)
     },
-    ...mapMutations(["toggleListShow", "togglePlayStatus","setCurrentTime","setDuration"])
+    ...mapMutations(["toggleListShow", "togglePlayStatus","setCurrentTime","setDuration","play"])
   },
   computed: {
-    ...mapState(["listShow", "currentSong", "playStatus"])
+    ...mapState(["listShow", "currentSong", "playStatus","currentTime"])
   },
   watch: {
     playStatus(status) {
@@ -56,7 +56,8 @@ export default {
         this.$refs.audio.pause();
         this.iconStatus = false;
       }
-    }
+    },
+
   }
 };
 </script>

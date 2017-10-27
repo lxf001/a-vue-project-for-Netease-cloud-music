@@ -79,17 +79,24 @@ export default {
       try {
         let res = await getPlaylistDetail(this.id);
         this.playlist = res.code === 200 ? res.playlist : {};
+
+        //获取url的集合
+        let ids = this.playlist.trackIds.map(x=>x.id);
+        res =  await getMusicUrl(ids);
+        let urls = res.code === 200? res.data:[];
+       
+       //将对应的id添加到tracks中对应的歌曲中
+       this.playlist.tracks.map(x=>{
+         urls.forEach(element =>{
+           if(element.id === x.id){
+             x.url = element.url;
+           }
+         });
+         return x;
+       })
+        console.log(this.playlist.tracks[0])
       } catch (e) {
         console.log("getPlaylistDetail", e);
-      }
-    },
-    async getMusicUrl(ids) {
-      try {
-        let res = await getMusicUrl(ids);
-        this.urls = res.code === 200 ? res.data : [];
-        console.log(4444, this.urls);
-      } catch (e) {
-        console.log("getMusicUrl", e);
       }
     },
     message(message) {
@@ -99,12 +106,12 @@ export default {
       });
     },
     routerGo(item) {
-      this.setCurrentSong(item);
-      this.$router.push({
-        name: "song"
-      });
+      this.pushList(item);
+      // this.$router.push({
+      //   name: "song"
+      // });
     },
-    ...mapActions(["setLoading", "setCurrentSong"])
+    ...mapActions(["setLoading", "pushList"])
   },
   computed: {},
   // beforeRouteLeave(to, from, next) {

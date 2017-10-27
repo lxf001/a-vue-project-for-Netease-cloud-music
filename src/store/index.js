@@ -26,7 +26,7 @@ const state = {
     artist:'陈奕迅',
     album:''
   },
-  index:0
+  index:0,
 }
 
 Vue.use(Vuex)
