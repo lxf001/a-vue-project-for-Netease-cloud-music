@@ -147,7 +147,7 @@ export default {
   }
   .cover-wrap {
     @include wh(100%);
-    @include flex(flex-start,center);
+    @include flex(space-between,center);
     padding: 1.8rem 0.5rem;
     .wl {
       position: relative;
@@ -161,6 +161,7 @@ export default {
       z-index: 2;
       height: 100%;
       padding-left: 0.5rem;
+      flex-basis: 65%;
       .name {
         @include cs(#fff,0.5rem);
       }

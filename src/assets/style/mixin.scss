@@ -36,17 +36,19 @@ $per:1.066666rem;
     right:0;
 }
 @mixin blurBg(){
+    overflow: hidden;
     background-repeat:no-repeat;
     background-size:cover;
     background-position:center;
-    transform: scale(1.5);
-    -webkit-transform: scale(1.5);
-    filter:blur(1rem);
-    -webkit-filter: blur(1rem);
+    // transform: scale(1.5);
+    // -webkit-transform: scale(1.5);
+    //blur严重影响移动端性能！！！
+    // filter:blur(1rem);
+    // -webkit-filter: blur(1rem);
     &::after{
         content:'';
         position: absolute;
-        background: rgba(0,0,0,.3);
+        background: rgba(0,0,0,.6);
         @include zero();
     }
 }

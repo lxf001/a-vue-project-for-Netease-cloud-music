@@ -2,16 +2,18 @@
   <div class="margin-top">
     <transparentHead :title="currentSong.name" :subTitle="currentSong.artist" underTitle="ff"></transparentHead>
     <div class="cover" :style="`background-image:url('${currentSong.cover}')`"></div>
+    <!-- <div class="cover" ></div>     -->
 
     <div class="box" :class="playStatus?'':'needle-up'">
       <div class="img-wrapper">
-        <img :src="currentSong.cover" alt="">
+        <img v-lazy="currentSong.cover" alt="">
       </div>
     </div>
     <div class="slider">
-      <span class="current-time">{{currentTime|format}}</span>
-      <mu-slider v-model="percent" @change="setCur" class="demo-slider"/>
-      <span class="current-time">{{ duration|format}}</span>
+      <div class="time">{{currentTime|format}}</div>
+      <mu-slider v-model="percent" @change="setCur" class="slider-bar"/>
+      <!-- <el-slider  :show-tooltip="false"  class="slider-bar"></el-slider> -->
+      <div class="time">{{ duration|format}}</div>
     </div>
     <div class="play-control">
       <i class="iconfont icon-singlecycle"></i>
@@ -24,13 +26,15 @@
 
 </template>
 <script>
+  import pic from '../assets/404.png'
   import transparentHead from "comp/thead";
   import {mapState, mapActions, mapMutations} from "vuex";
 
   export default {
     data() {
       return {
-        percent: this.currentTime
+        percent: this.currentTime,
+        pic
       };
     },
     components: {
@@ -38,15 +42,13 @@
     },
     props: ["id"],
     mounted() {
-      this.init();
+      this.setCurrentSong();
+
       console.log(typeof this.duration);
     },
     methods: {
-      async init() {
-        this.setLoading(true);
-        await this.setCurrentSong();
-        this.setLoading(false);
-      },
+
+
       setCur() {
         document.getElementById("audio").currentTime = this.percent * this.duration / 100;
       },
@@ -159,14 +161,20 @@
     position: fixed;
     bottom: 2.5rem;
     width: 100%;
+    height: 24px;
     z-index: $z1;
     padding: 0 0.5rem;
     @include flex(center, center);
-    .demo-slider {
-      margin: 0 0.2rem;
+    .slider-bar {
+      width:80%;
+      margin: 0;
+      padding: 0;
     }
-    span {
+    .time {
       @include cs(#eee, 0.3rem);
+      text-align: center;
+      margin: 0 .1rem;
+      padding: 0;
     }
   }
 

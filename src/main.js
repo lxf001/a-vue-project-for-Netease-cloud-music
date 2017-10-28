@@ -13,9 +13,11 @@ import VueAgile from 'vue-agile'
 Vue.use(VueAgile)
 Vue.use(MuseUI)
 
-import { Carousel,CarouselItem} from 'element-ui'
+import { Carousel,CarouselItem,Slider} from 'element-ui'
 Vue.use(Carousel)
 Vue.use(CarouselItem)
+Vue.use(Slider)
+
 import '@/config/rem'
 import './assets/style/common.scss'
 
@@ -26,7 +28,7 @@ Vue.config.productionTip = false
 Vue.use(vueLazyload, {
   preLoad: 1.1,
   error: require('./assets/404.png'),
-  loading: require('./assets/loading-spin.svg'),
+  loading: require('./assets/loading.png'),
   attempt: 1
 })
 

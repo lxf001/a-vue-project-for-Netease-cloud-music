@@ -43,7 +43,9 @@ export default new Router({
       name:'song',
       component:song,
       meta:{
-        closeBar:true
+        closeBar:true,
+        alive:false
+        
       },
       props:true
     }

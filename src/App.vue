@@ -1,8 +1,5 @@
 <template>
   <div id="app">
-    <div class="loading" v-if="loading">
-      <mu-circular-progress :size="90" color="red"/>
-    </div>
     <h v-if="$route.meta.needHead"></h>
     <!--<transition name="router">-->
       <keep-alive  >

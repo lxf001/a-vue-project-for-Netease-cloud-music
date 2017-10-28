@@ -50,6 +50,8 @@ export default {
       if (status === true) {
         this.$refs.audio.play();
         this.iconStatus = true;
+        
+        
       } else {
         this.$refs.audio.pause();
         this.iconStatus = false;
