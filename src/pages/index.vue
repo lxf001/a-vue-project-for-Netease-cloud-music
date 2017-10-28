@@ -80,13 +80,12 @@ export default {
   },
   methods: {
     ...mapMutations(["setLoading"]),
-    async init() {
+     init() {
       try {
-        await this.getBanner();
-        await this.getRecommendation();
-        await this.getPrivateContent();
-        await this.getHighQuality("华语");
-        this.setLoading(false);
+         this.getBanner();
+         this.getRecommendation();
+         this.getPrivateContent();
+         this.getHighQuality("华语");
       } catch (e) {}
       this.setLoading(false);
     },

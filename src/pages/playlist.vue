@@ -5,7 +5,7 @@
             <div class="background" :style="`background-image:url('${playlist.coverImgUrl}')`"></div>
             <div class="cover-wrap">
                 <div class="wl">
-                    <img :src="playlist.coverImgUrl" alt="" class="cover-img">
+                    <img v-lazy="playlist.coverImgUrl" alt="" class="cover-img">
                     <i class="iconfont icon-headset">123</i>
                     <span class="tag">歌单</span>
                 </div>
@@ -79,7 +79,7 @@ export default {
   },
   methods: {
     async init() {
-      this.setLoading(true);
+
       try {
         let res = await getPlaylistDetail(this.id);
         this.playlist = res.code === 200 ? res.playlist : {};
@@ -90,7 +90,7 @@ export default {
         let urls = res.code === 200 ? res.data : [];
         this.setLoading(false);
 
-        //将对应的id添加到tracks中对应的歌曲中
+        //将对应的url添加到tracks中对应的歌曲中
         this.playlist.tracks.forEach(x => {
           urls.forEach(element => {
             if (element.id === x.id) {

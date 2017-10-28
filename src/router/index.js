@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import index from 'pages/index'
-import music from 'pages/music'
-import playlist from 'pages/playlist'
-import song from 'pages/song'
 
+const index = () => import('pages/index')
+const music = () => import('pages/music')
+const playlist = () => import('pages/playlist')
+const song = () => import('pages/song')
 
 Vue.use(Router)
 
