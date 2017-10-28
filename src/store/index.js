@@ -6,9 +6,8 @@ import getters from './getters'
 import initMusic from '../assets/music/init.mp3'
 const state = {
   loading:true,
- 
-  listStatus:false,
-  playStorage:[],
+  listStorage:[],//歌单封面图片缓存
+  playStorage:[],//歌曲缓存
   duration:0,
   currentTime:0,
 

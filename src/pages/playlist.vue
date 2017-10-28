@@ -2,15 +2,15 @@
     <div>
         <transparentH title="歌单" :underTitle="playlist.name" :subTitle="playlist.tags.join(' ')"></transparentH>
         <section class="cover" >
-            <div class="background" :style="`background-image:url('${playlist.coverImgUrl}')`"></div>
+            <div class="background" ></div>
             <div class="cover-wrap">
                 <div class="wl">
-                    <img v-lazy="playlist.coverImgUrl" alt="" class="cover-img">
+                    <img :src="img" alt="" class="cover-img">
                     <i class="iconfont icon-headset">123</i>
                     <span class="tag">歌单</span>
                 </div>
                 <div class="wr">
-                    <h2 class="name">{{playlist.name}}</h2>
+                    <h2 class="name">{{name}}</h2>
                     <div class="creator">
                         <img :src="playlist.creator.avatarUrl" class="avatar" alt="">
                         <span class="nickname">{{playlist.creator.nickname}} ></span>
@@ -59,7 +59,9 @@ export default {
       playlist: {
         creator: {},
         tags: []
-      }
+      },
+      img:'',
+      name
     };
   },
   components: {
@@ -67,6 +69,9 @@ export default {
   },
   props: ["id"],
   mounted() {
+    let storage = this.listStorage.filter(x=>x.id == this.id)[0];
+    this.img = storage.img;
+    this.name = storage.name;  
     if (this.$route.params.fetch) {
       this.init();
     } else {
@@ -76,6 +81,7 @@ export default {
         this.init();
       }
     }
+    console.log('aaa',this.listStorage.filter(x=>x.id == this.id)[0].img)
   },
   methods: {
     async init() {
@@ -120,7 +126,7 @@ export default {
     ...mapMutations(["setPlayStorage", "setLoading", "pushList"])
   },
   computed: {
-    ...mapState(["playStorage"])
+    ...mapState(["playStorage","listStorage"])
   },
   beforeRouteEnter: (to, from, next) => {
     if (from.name === "index") {
@@ -143,7 +149,7 @@ export default {
     position: absolute;
     top: 0;
     @include wh(100%);
-    @include blurBg();
+    background:$bg;
   }
   .cover-wrap {
     @include wh(100%);

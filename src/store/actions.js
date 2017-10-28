@@ -10,7 +10,6 @@ export default {
     
     index = index<0? 0 :(index>=state.list.length? 0: index);//判断index范围
     state.index = index;
-    commit('SET_CURRENTSONG'); 
       //检查lyric是否存在
     let indexSong = state.list[index],
       indexId = indexSong.id;
@@ -26,6 +25,8 @@ export default {
         console.log('get indexsong lyric', e)
       }
     }
+    commit('SET_CURRENTSONG'); 
+    
      
   }
 }

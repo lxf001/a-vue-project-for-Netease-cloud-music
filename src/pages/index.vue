@@ -77,17 +77,16 @@ export default {
   },
   mounted() {
     this.init();
+    
   },
   methods: {
-    ...mapMutations(["setLoading"]),
-     init() {
-      try {
-         this.getBanner();
-         this.getRecommendation();
-         this.getPrivateContent();
-         this.getHighQuality("华语");
-      } catch (e) {}
-      this.setLoading(false);
+    ...mapMutations(["setLoading", "pushListStorage"]),
+    async init() {
+      this.getBanner();
+      this.getPrivateContent();
+      await this.getRecommendation(); 
+      await this.getHighQuality("华语");
+      this.commitListStorage([...this.recommendationData,...this.highQualityData])
     },
     async getBanner() {
       try {
@@ -126,6 +125,17 @@ export default {
         return Math.ceil(num / 10000) + "万";
       }
       return num;
+    },
+    //保存首页歌单的图片，使歌单详情的图片不用等获取就能呈现
+    commitListStorage(list){
+      list =  list.map(x=>{
+        return {
+          id:x.id,
+          img:x.coverImgUrl||x.picUrl,
+          name:x.name
+        }
+      })
+      this.pushListStorage(list);
     }
   },
   computed: {},

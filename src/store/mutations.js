@@ -3,6 +3,10 @@ export default {
   setLoading(state,loading){
     state.loading = loading
   },
+  pushListStorage(state,payload){
+    state.listStorage.push(...payload);
+    console.log('list storage',state.listStorage)
+  },
   setPlayStorage(state,payload){
     state.playStorage = payload;
   },

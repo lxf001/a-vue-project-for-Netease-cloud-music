@@ -34,8 +34,10 @@ const fetch2 = async function (type, id) {
 export const
   getMusic = (url) => fetch1(url),
   getBanner = () => fetch1('banner'),
-  getRecommendation = () => fetch1('personalized'),//推荐歌单
   getPrivateContent = () => fetch1('personalized/privatecontent'),//独家放送
+  
+  getRecommendation = () => fetch1('personalized'),//推荐歌单
+  getPlaylist = (limit=6,order='hot')=> fetch1('/top/playlist',{limit,order}),//网友精选歌单,order为new/hot,代表最新/最热
   getHighQuality = (limit = 6, cat = '') => fetch1('top/playlist/highquality', { limit, cat }),//精品歌单，cat值为'华语','欧美','流行','古风'等
 
   // getPlaylistDetail = (id) => fetch1('/playlist/detail', { id }),//歌单详情
