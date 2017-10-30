@@ -8,7 +8,7 @@
     <transition name="list">
       <ul class="list" v-show="listShow">
         <li class="title">{{'播放列表'}}</li>
-        <li class="item" v-for="n in list" :key="n.id">{{n.name}}<span class="artist">&nbsp- {{n.artist}}</span> <i class="iconfont icon-delete"></i>
+        <li class="item" v-for="(n,index) in list" :key="n.id">{{n.name}}<span class="artist">&nbsp- {{n.artist}}</span> <i class="iconfont icon-delete" @click="deleteSong(index)"></i>
         </li>
       </ul>
     </transition>
@@ -25,7 +25,8 @@ export default {
   },
   methods:{
     ...mapMutations([
-      'toggleListShow'
+      'toggleListShow',
+      'deleteSong'
     ])
   }
 };
@@ -45,14 +46,15 @@ $listHeight: 10rem;
     @include cs(#000, 0.45rem);
   }
   .title {
-    @include wh(100%, 1.3rem);
+    @include wh(100%, 1rem);
     @include flex(center, center);
     font-size: 0.55rem;
+    background: #eee;
   }
   .item {
-    @include wh(100%, 1rem);
+    @include wh(100%, 1.3rem);
     @include flex(flex-start, baseline);
-    line-height: 1rem;
+    line-height: 1.3rem;
     padding-left: 0.4rem;
     .artist {
       @include cs($gray, 0.3rem);

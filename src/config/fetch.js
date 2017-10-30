@@ -57,4 +57,6 @@ export const
 
   getSong = (id) => fetch1('song/detail',{ids:id}),//获取歌曲详情，不包括url
 
-  getRank = (id=1) => fetch1('/top/list',{idx:id})//获取排行榜
+  getRank = (id=1) => fetch1('/top/list',{idx:id}),//获取排行榜
+
+  getSearch = (keywords,type=1,limit=20,offset=0) => fetch1('/search',{keywords,type,limit,offset})

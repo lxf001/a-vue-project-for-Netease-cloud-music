@@ -56,6 +56,14 @@ export default {
   SET_CURRENTSONG(state){
     state.currentSong = state.list[state.index];
   },
+  deleteSong(state,index){
+    state.list.splice(index,1);
+    if(index<=state.index){
+      state.index=state.index===0?0:(state.index-1)
+    }      
+    state.currentSong = state.list[state.index];      
+    
+  },
   togglePlayStatus(state,payload){
     state.playStatus = ! state.playStatus;
   },

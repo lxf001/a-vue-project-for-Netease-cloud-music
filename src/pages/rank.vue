@@ -7,7 +7,7 @@
        <i class="iconfont icon-play1" slot="right" ></i> 
       </mu-list-item>
     </mu-list>
-      <mu-divider/>
+    <mu-divider/>
 
   </div>
 </template>
