@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-let baseURL = 'http://xxmusic.applinzi.com/'
+let baseURL = 'https://xxmusic.applinzi.com/'
 let instance = axios.create({
   baseURL
 })
