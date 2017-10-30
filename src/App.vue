@@ -2,7 +2,7 @@
   <div id="app">
     <h v-if="$route.meta.needHead"></h>
     <!--<transition name="router">-->
-      <keep-alive  >
+      <keep-alive>
         <router-view v-if="$route.meta.alive" class="router"/>
       </keep-alive>
     <!--</transition>-->

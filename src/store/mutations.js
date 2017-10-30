@@ -3,7 +3,19 @@ export default {
   setLoading(state,loading){
     state.loading = loading
   },
+  //music 选项卡状态
+  setActiveTab(state,payload){
+    state.activeTab = payload;
+  },
+  //缓存歌单封面
   pushListStorage(state,payload){
+    payload =  payload.map(x=>{
+      return {
+        id:x.id,
+        img:x.coverImgUrl||x.picUrl,
+        name:x.name
+      }
+    })
     state.listStorage.push(...payload);
     console.log('list storage',state.listStorage)
   },
@@ -33,7 +45,7 @@ export default {
       album:x.al.name,
       url:x.url
     }))
-    state.list.push(...payload);   
+    state.list.push(...payload);
     if(state.list.length>index){  //改变对应播放表里中正在播放歌曲的index
       state.index = index;
     }else{
@@ -50,9 +62,9 @@ export default {
   //设置播放状态为true
   play(state,payload){
     state.playStatus = true;
-    
+
   },
-  
+
   setCurrentTime(state,payload){
     state.currentTime = payload;
   },

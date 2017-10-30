@@ -23,7 +23,7 @@
     </div>
     <div class="play-control">
       <i class="iconfont icon-singlecycle"></i>
-      <i class="iconfont icon-previous" @click="setCurrentSong(index+1)"></i>
+      <i class="iconfont icon-previous" @click="setCurrentSong(index-1)"></i>
       <i class="iconfont icon-play1" :class="playStatus?'icon-pause':'icon-play4'" @click="togglePlayStatus"></i>
       <i class="iconfont icon-next" @click="setCurrentSong(index+1)"></i>
       <i class="iconfont icon-list" @click="toggleListShow"></i>
@@ -84,7 +84,7 @@ export default {
     lyricArr() {
       let lyric = this.currentSong.lyric;
       if (lyric) {
-        lyric = lyric.split("\n"); //每一句歌词为一项 
+        lyric = lyric.split("\n"); //每一句歌词为一项
         lyric.pop();//去掉末尾空项
         lyric =  lyric.map(function(value, index, array) {
           let arr = value.split("]");
@@ -111,10 +111,10 @@ export default {
       this.lyricArr.forEach(function(value,index,array) {
         if(value.time<v){
           this.lyricIndex = index;
-          
+
         }
       }, this);
-      console.log(this.lyricIndex)
+
     }
   }
   // beforeRouteLeave: (to, from, next) => {

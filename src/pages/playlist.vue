@@ -71,7 +71,7 @@ export default {
   mounted() {
     let storage = this.listStorage.filter(x=>x.id == this.id)[0];
     this.img = storage.img;
-    this.name = storage.name;  
+    this.name = storage.name;
     if (this.$route.params.fetch) {
       this.init();
     } else {
@@ -81,7 +81,6 @@ export default {
         this.init();
       }
     }
-    console.log('aaa',this.listStorage.filter(x=>x.id == this.id)[0].img)
   },
   methods: {
     async init() {
@@ -129,11 +128,11 @@ export default {
     ...mapState(["playStorage","listStorage"])
   },
   beforeRouteEnter: (to, from, next) => {
-    if (from.name === "index") {
-      to.params.fetch = true;
-    } else {
+    if (from.name === "song") {
       this.playlist = this.tracks;
       to.params.fetch = false;
+    } else {
+      to.params.fetch = true;
     }
     next();
   }

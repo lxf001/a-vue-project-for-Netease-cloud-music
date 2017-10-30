@@ -1,12 +1,17 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-const index = () => import('pages/index')
-const music = () => import('pages/music')
-const playlist = () => import('pages/playlist')
-const song = () => import('pages/song')
+const index = () => import('pages/index'),
+  music = () => import('pages/music'),
+  playlist = () => import('pages/playlist'),
+  song = () => import('pages/song'),
+  high = () => import('pages/high'),
+  hot = () => import('pages/hot'),
+  news = () => import('pages/new'),
+  rank = () => import('pages/rank')
 
-Vue.use(Router)
+
+  Vue.use(Router)
 
 export default new Router({
   routes: [
@@ -16,7 +21,7 @@ export default new Router({
       component: index,
       meta: {
         needHead: true,
-        alive:true
+        alive: true
       },
 
     },
@@ -25,8 +30,39 @@ export default new Router({
       name: 'music',
       component: music,
       meta: {
-        needHead: true
+        needHead: true,
+        alive: true
+
       },
+      children: [
+        {
+          path: 'high',
+          name: 'high',
+          meta: {
+            needHead: true,
+            alive: true
+          },
+          component: high
+        },
+        {
+          path: 'hot',
+          name: 'hot',
+          meta: {
+            needHead: true,
+            alive: true
+          },
+          component: hot
+        },
+        {
+          path: 'new',
+          name: 'new',
+          meta: {
+            needHead: true,
+            alive: true
+          },
+          component: news
+        }
+      ]
     },
     {
       path: '/playlist/:id',
@@ -34,20 +70,27 @@ export default new Router({
       component: playlist,
       meta: {
         needHead: false,
-        alive:false
+        alive: false
       },
-      props:true,
+      props: true,
     },
     {
-      path:'/song',
-      name:'song',
-      component:song,
-      meta:{
-        closeBar:true,
-        alive:false
-        
-      },
-      props:true
+      path: '/song',
+      name: 'song',
+      component: song,
+      meta: {
+        closeBar: true,
+        alive: false
+      }
+    },
+    {
+      path: '/rank',
+      name: 'rank',
+      component: rank,
+      meta: {
+        needHead: true,
+        alive: true
+      }
     }
   ]
 })

@@ -7,10 +7,11 @@
       <i class="iconfont icon-play2"></i>
 
       <div class="center">
-        <router-link to="/music" class="iconfont icon-music" :class="this.$route.path ==='/music'?'white-icon':''"></router-link>
+        <router-link :to="`/music/${activeTab}`" class="iconfont icon-music" :class="this.$route.path.indexOf('/music')!==-1?'white-icon':''"></router-link>
         <router-link to="/" class="iconfont icon-netease" :class="this.$route.path ==='/'?'white-icon':''"></router-link>
-        <i class="iconfont icon-rank"></i>
-        
+        <router-link to="/rank" class="iconfont icon-rank" :class="this.$route.path ==='/rank'?'white-icon':''"></router-link>
+
+
       </div>
 
       <i class="iconfont icon-search"></i>
@@ -18,18 +19,22 @@
   </div>
 </template>
 <script>
+  import {mapState} from 'vuex'
   export default {
+    name:'head',
     data() {
       return {};
     },
     mounted() {
-//      console.log(this.$route);
+      console.log(this.$route);
     },
     methods: {
 
     },
     computed: {
-
+      ...mapState([
+        'activeTab'
+      ])
     }
   };
 </script>

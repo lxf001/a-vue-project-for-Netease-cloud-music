@@ -27,16 +27,16 @@
 
     <!--华语精选-->
     <div class="content">
-      <router-link to="/" class="title">
+      <router-link to="/music/high" class="title">
         <span class="text">华语精选 ></span>
       </router-link>
       <div class="items">
-        <div class="item one-third" v-for="item in highQualityData" :key="item.id">
+        <router-link :to="'/playlist/'+item.id" class="item one-third" v-for="item in highQualityData" :key="item.id">
           <img v-lazy="item.coverImgUrl" alt="">
           <span class="tag" v-if="item.highQuality">精品</span>
           <i class="iconfont icon-headset">{{numConversion(item.playCount)}}</i>
           <p>{{item.name}}</p>
-        </div>
+        </router-link>
       </div>
     </div>
 
@@ -77,16 +77,16 @@ export default {
   },
   mounted() {
     this.init();
-    
+
   },
   methods: {
     ...mapMutations(["setLoading", "pushListStorage"]),
     async init() {
       this.getBanner();
       this.getPrivateContent();
-      await this.getRecommendation(); 
+      await this.getRecommendation();
       await this.getHighQuality("华语");
-      this.commitListStorage([...this.recommendationData,...this.highQualityData])
+      this.pushListStorage([...this.recommendationData,...this.highQualityData])
     },
     async getBanner() {
       try {
@@ -126,17 +126,6 @@ export default {
       }
       return num;
     },
-    //保存首页歌单的图片，使歌单详情的图片不用等获取就能呈现
-    commitListStorage(list){
-      list =  list.map(x=>{
-        return {
-          id:x.id,
-          img:x.coverImgUrl||x.picUrl,
-          name:x.name
-        }
-      })
-      this.pushListStorage(list);
-    }
   },
   computed: {},
   beforeDestroy() {
