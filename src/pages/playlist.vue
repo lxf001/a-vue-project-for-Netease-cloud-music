@@ -93,7 +93,6 @@ export default {
         let ids = this.playlist.trackIds.map(x => x.id);
         res = await getMusicUrl(ids);
         let urls = res.code === 200 ? res.data : [];
-        this.setLoading(false);
 
         //将对应的url添加到tracks中对应的歌曲中
         this.playlist.tracks.forEach(x => {

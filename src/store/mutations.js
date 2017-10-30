@@ -40,9 +40,9 @@ export default {
     payload = payload.map(x=>({       //过滤不必要的property
       id:x.id,
       name:x.name,
-      cover:x.al.picUrl,
-      artist:x.ar[0].name,
-      album:x.al.name,
+      cover:x.al?x.al.picUrl:x.album.picUrl,
+      artist:x.al?x.ar[0].name:x.artists[0].name,
+      album:x.al?x.al.name:x.album.name,
       url:x.url
     }))
     state.list.push(...payload);

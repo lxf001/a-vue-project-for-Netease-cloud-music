@@ -14,7 +14,7 @@
 
       </div>
 
-      <i class="iconfont icon-search"></i>
+      <router-link class="iconfont icon-search" to="/search"></router-link>
     </div>
   </div>
 </template>

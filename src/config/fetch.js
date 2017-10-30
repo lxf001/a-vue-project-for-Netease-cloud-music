@@ -40,8 +40,8 @@ export const
   getPlaylist = (limit=6,order='hot')=> fetch1('/top/playlist',{limit,order}),//网友精选歌单,order为new/hot,代表最新/最热
   getHighQuality = (limit = 6, cat = '') => fetch1('top/playlist/highquality', { limit, cat }),//精品歌单，cat值为'华语','欧美','流行','古风'等
 
-  // getPlaylistDetail = (id) => fetch1('/playlist/detail', { id }),//歌单详情
-  getPlaylistDetail = (id) => fetch2('playlist',id),
+  getPlaylistDetail = (id) => fetch1('/playlist/detail', { id }),//歌单详情
+  // getPlaylistDetail = (id) => fetch2('playlist',id),
 
   getMusicUrl = (id) => {//获取url,id为[]
     if(Object.prototype.toString.call(id)==="[object Array]"){
@@ -52,8 +52,8 @@ export const
 
   },
 
-  // getLyric = (id) => fetch1('lyric', { id }),//获取歌词
-  getLyric = (id) => fetch2('lyric', id),
+  getLyric = (id) => fetch1('lyric', { id }),//获取歌词
+  // getLyric = (id) => fetch2('lyric', id),
 
   getSong = (id) => fetch1('song/detail',{ids:id}),//获取歌曲详情，不包括url
 

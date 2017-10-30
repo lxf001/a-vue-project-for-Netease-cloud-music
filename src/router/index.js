@@ -8,8 +8,8 @@ const index = () => import('pages/index'),
   high = () => import('pages/high'),
   hot = () => import('pages/hot'),
   news = () => import('pages/new'),
-  rank = () => import('pages/rank')
-
+  rank = () => import('pages/rank'),
+  search = ()=> import('pages/search')
 
   Vue.use(Router)
 
@@ -91,6 +91,11 @@ export default new Router({
         needHead: true,
         alive: true
       }
+    },
+    {
+      path: '/search',
+      name: 'search',
+      component: search,
     }
   ]
 })
