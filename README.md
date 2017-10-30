@@ -1,6 +1,47 @@
-# test
 
-> A Vue.js project
+### 技术栈
+
+```
+vue2+vue-router+vuex+webpack+scss+es6/7+muse
+
+```
+
+### 项目运行
+
+```
+git clone https://github.com/lxf001/vue-cloudMusic.git
+
+cd vue-cloudMusic
+
+cnpm install
+
+cnpm run dev
+
+```
+### 效果演示
+
+[项目演示请点击这里](https://lxf001.github.io/vue-cloudMusic/#/) （请用chrome手机模式预览）
+
+
+### 移动端扫描下方二维码
+
+![](https://raw.githubusercontent.com/lxf001/vue-cloudMusic/master/QRcode.png)
+
+
+
+
+
+
+<img src="https://raw.githubusercontent.com/lxf001/vue-cloudMusic/master/screenshot/1.png" width="300" height="530" alt="">  <img src="https://raw.githubusercontent.com/lxf001/vue-cloudMusic/master/screenshot/2.png" width="300" height="530" alt="">
+<img src="https://raw.githubusercontent.com/lxf001/vue-cloudMusic/master/screenshot/3.png" width="300" height="530" alt="">  <img src="https://raw.githubusercontent.com/lxf001/vue-cloudMusic/master/screenshot/4.png" width="300" height="530" alt="">
+<img src="https://raw.githubusercontent.com/lxf001/vue-cloudMusic/master/screenshot/5.png" width="300" height="530" alt="">  <img src="https://raw.githubusercontent.com/lxf001/vue-cloudMusic/master/screenshot/6.png" width="300" height="530" alt="">
+<img src="https://raw.githubusercontent.com/lxf001/vue-cloudMusic/master/screenshot/7.png" width="300" height="530" alt="">
+
+
+
+
+
+
 
 ## Build Setup
 
@@ -27,4 +68,3 @@ npm run e2e
 npm test
 ```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
