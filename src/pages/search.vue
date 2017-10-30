@@ -1,5 +1,8 @@
 <template>
   <div>
+    <mu-popup position="top" :overlay="false" popupClass="demo-popup-top" :open="topPopup">
+      功能暂未开发
+    </mu-popup>
     <div class="header">
       <div class="text-field">
         <i class="iconfont icon-back" @click="$router.go(-1)"></i>
@@ -13,36 +16,36 @@
         <mu-tab value="playlist" @active="handleActive('playlist')" title="歌单"/>
         <mu-tab value="artist" title="歌手" @active="handleActive('artist')"/>
         <mu-tab value="album" title="专辑" @active="handleActive('album')"/>
-      </mu-tabs>    
+      </mu-tabs>
     </div>
     <div class="placeholder"></div>
-    
+
       <!-- 单曲 -->
     <mu-list v-if="activeTab ==='song'">
       <mu-list-item :title="item.name" :describeText="`${item.artists[0].name} - ${item.album.name}`" v-for="(item,index) in song" :key="item.id"  @click="routerToSong(item)">
-       <i class="iconfont icon-play1" slot="right" ></i> 
+       <i class="iconfont icon-play1" slot="right" ></i>
       </mu-list-item>
     </mu-list>
 
     <!-- 歌单 -->
     <mu-list v-if="activeTab ==='playlist'" >
       <mu-list-item :title="item.name" :describeText="`${item.creator.nickname}`" v-for="(item,index) in playlist" :key="item.id"  @click="routerToPlaylist(item.id)">
-        <img v-lazy="item.coverImgUrl" alt="" slot="left" style="width:40px;height:40px"> 
+        <img v-lazy="item.coverImgUrl" alt="" slot="left" style="width:40px;height:40px">
       </mu-list-item>
     </mu-list>
 
     <!-- 歌手 -->
     <mu-list v-if="activeTab ==='artist'">
-      <mu-list-item :title="item.name"  v-for="(item,index) in artist" :key="item.id"  >
+      <mu-list-item :title="item.name"  v-for="(item,index) in artist" :key="item.id" @click="topPopup=true" >
         <mu-avatar slot="leftAvatar" :src="item.picUrl"></mu-avatar>
       </mu-list-item>
     </mu-list>
 
     <!-- 专辑 -->
     <mu-list v-if="activeTab ==='album'">
-      <mu-list-item :title="item.name" :describeText="`${item.artists[0].name}`" v-for="(item,index) in album" :key="item.id" >
+      <mu-list-item :title="item.name" :describeText="`${item.artists[0].name}`" v-for="(item,index) in album" :key="item.id" @click="topPopup=true">
         <img v-lazy="item.picUrl" alt="" slot="left" style="width:40px;height:40px">
-       
+
       </mu-list-item>
     </mu-list>
 
@@ -55,6 +58,7 @@ import { mapMutations } from "vuex";
 export default {
   data() {
     return {
+      topPopup:false,
       keywords: "",
       activeTab: "song",
       song: [],
@@ -117,10 +121,17 @@ export default {
     },
     ...mapMutations(["pushList" ,'pushListStorage'])
   },
-  computed: {}
+  computed: {},
+  watch:{
+    topPopup(val){
+      if(val){
+        setTimeout(()=>this.topPopup=false,1200)
+      }
+    }
+  }
 };
 </script>
-<style lang="scss" scoped>
+<style lang="scss" >
 @import "../assets/style/mixin.scss";
 .header {
   position: fixed;
@@ -136,6 +147,16 @@ export default {
 }
 .placeholder {
   @include wh(100%,2*$h);
+}
+.demo-popup-top{
+  width: 100%;
+  opacity: .8;
+  height: 48px;
+  line-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 375px;
 }
 </style>
 

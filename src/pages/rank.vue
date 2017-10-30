@@ -1,10 +1,9 @@
 <template>
   <div>
-
     <mu-list >
-      <mu-list-item :title="item.name" :describeText="`${item.artists[0].name} - ${item.album.name}`" v-for="(item,index) in rank.tracks" :key="item.id"  @click="routerGo(item)">
+      <mu-list-item :title="item.name" :describeText="`${item.artists[0].name} - ${item.album.name}`" v-for="(item,index) in rank.tracks.slice(0,50)" :key="item.id"  @click="routerGo(item)">
         <mu-avatar color="red" backgroundColor="transparent" slot="leftAvatar" style="color:red">{{index+1}}</mu-avatar>
-       <i class="iconfont icon-play1" slot="right" ></i> 
+       <i class="iconfont icon-play1" slot="right" ></i>
       </mu-list-item>
     </mu-list>
     <mu-divider/>
@@ -24,7 +23,7 @@ export default {
     this.getRank();
   },
   methods: {
-    async getRank(id = 1) {
+    async getRank(id = 0) {
       try {
         let res = await getRank(id);
         this.rank = res.code === 200 ? res.result : {};

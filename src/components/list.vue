@@ -8,14 +8,14 @@
     <transition name="list">
       <ul class="list" v-show="listShow">
         <li class="title">{{'播放列表'}}</li>
-        <li class="item" v-for="(n,index) in list" :key="n.id">{{n.name}}<span class="artist">&nbsp- {{n.artist}}</span> <i class="iconfont icon-delete" @click="deleteSong(index)"></i>
+        <li class="item" v-for="(n,index) in list" :key="n.id" @click="setCurrentSong(index)">{{n.name}}<span class="artist">&nbsp- {{n.artist}}</span> <i class="iconfont icon-delete" @click.stop="deleteSong(index)"></i>
         </li>
       </ul>
     </transition>
 </div>
 </template>
 <script>
-import { mapState,mapMutations } from "vuex";
+import { mapState,mapMutations,mapActions } from "vuex";
 export default {
   data() {
     return {};
@@ -27,6 +27,9 @@ export default {
     ...mapMutations([
       'toggleListShow',
       'deleteSong'
+    ]),
+    ...mapActions([
+      'setCurrentSong'
     ])
   }
 };

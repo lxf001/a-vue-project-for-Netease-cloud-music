@@ -16,7 +16,7 @@
       </div>
     </div>
 
-    <audio id= "audio" :src="currentSong.url" ref="audio" @canplay="play" @timeupdate="setCur"  @durationchange="setDur" autoplay></audio>
+    <audio id= "audio" :src="currentSong.url" ref="audio" @canplay="play" @timeupdate="setCur"  @durationchange="setDur" @ended="endEvent" autoplay></audio>
   </div>
 </template>
 <script>
@@ -38,20 +38,30 @@ export default {
     setDur(){
       this.setDuration(this.$refs.audio.duration)
     },
-
+    endEvent(){
+      if(this.list.length===1){
+        this.$refs.audio.play();
+      }else if(this.list.length===0){
+        this.togglePlayStatus();
+      }else {
+        this.setCurrentSong(this.index+1);
+      }
+    },
     ...mapMutations(["toggleListShow", "togglePlayStatus","setCurrentTime","setDuration","play"]),
-
+    ...mapActions([
+      "setCurrentSong"
+    ])
   },
   computed: {
-    ...mapState(["listShow", "currentSong", "playStatus","currentTime","index"])
+    ...mapState(["listShow", "currentSong", "playStatus","currentTime","index","list"])
   },
   watch: {
     playStatus(status) {
       if (status === true) {
         this.$refs.audio.play();
         this.iconStatus = true;
-        
-        
+
+
       } else {
         this.$refs.audio.pause();
         this.iconStatus = false;

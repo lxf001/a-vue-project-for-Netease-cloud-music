@@ -10,8 +10,6 @@
         <router-link :to="`/music/${activeTab}`" class="iconfont icon-music" :class="this.$route.path.indexOf('/music')!==-1?'white-icon':''"></router-link>
         <router-link to="/" class="iconfont icon-netease" :class="this.$route.path ==='/'?'white-icon':''"></router-link>
         <router-link to="/rank" class="iconfont icon-rank" :class="this.$route.path ==='/rank'?'white-icon':''"></router-link>
-
-
       </div>
 
       <router-link class="iconfont icon-search" to="/search"></router-link>

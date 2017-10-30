@@ -212,7 +212,7 @@ export default {
       transition: all .7s ease-out;
     padding-top:50%;
     li{
-      @include cs($gray,.5rem);
+      @include cs($gray,.42rem);
       text-align: center;
       height: 1rem;
       line-height: 1rem;
