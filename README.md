@@ -3,7 +3,7 @@
 
 ```
 vue2+vue-router+vuex+webpack+scss+es6/7+muse
-
+后台数据利用网易云api获取
 ```
 
 ### 项目运行
