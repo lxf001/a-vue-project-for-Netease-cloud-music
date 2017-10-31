@@ -6,7 +6,7 @@
             <div class="cover-wrap">
                 <div class="wl">
                     <img :src="img" alt="" class="cover-img">
-                    <i class="iconfont icon-headset">123</i>
+                    <i class="iconfont icon-headset">{{playlist.playCount|numConversion}}</i>
                     <span class="tag">歌单</span>
                 </div>
                 <div class="wr">
@@ -125,6 +125,14 @@ export default {
   },
   computed: {
     ...mapState(["playStorage","listStorage"])
+  },
+  filters:{
+    numConversion(num) {
+      if (num > 10000) {
+        return Math.ceil(num / 10000) + "万";
+      }
+      return num;
+    },
   },
   beforeRouteEnter: (to, from, next) => {
     if (from.name === "song") {

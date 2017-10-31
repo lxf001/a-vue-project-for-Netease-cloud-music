@@ -3,7 +3,6 @@ import Vuex from 'vuex'
 import mutations from './mutations'
 import actions from './actions'
 import getters from './getters'
-import initMusic from '../assets/music/init.mp3'
 const state = {
   activeTab:'high',//music 选项卡状态
   loading:true,
@@ -16,12 +15,12 @@ const state = {
   list:[],
   listShow:false,
   currentSong:{
-    name: "イエスタデイ・ワンス・モア (カーペンターズ)",
+    name: "未添加歌曲",
     id:868830,
-    cover:"http://p1.music.126.net/UmHoklpGmQCaUbkC18dEIQ==/880708813848823.jpg",
-    url:initMusic,
-    lyric:'[00:01]abc\n[99:99]aa`',
-    artist:'陈奕迅',
+    cover:require('../assets/init.png'),
+    url:'',
+    lyric:'[00:01]没有添加歌曲\n[99:99]没有添加音乐`',
+    artist:'无',
     album:''
   },
   index:0,

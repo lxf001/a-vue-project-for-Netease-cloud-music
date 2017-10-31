@@ -4,7 +4,7 @@
 
     <div class="playBar">
 
-        <img v-lazy="currentSong.cover" height="468" width="468"/>
+        <router-link to="/song"><img v-lazy="currentSong.cover" height="468" width="468"/></router-link>
         <router-link class="text" to="/song">
           <p class="ellipsis name">{{currentSong.name}}</p>
           <p class="ellipsis artist">{{currentSong.artist}}</p>

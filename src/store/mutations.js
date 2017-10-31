@@ -54,6 +54,7 @@ export default {
   //设置当前播放音乐
   SET_CURRENTSONG(state) {
     state.currentSong = state.list[state.index];
+
   },
   deleteSong(state, index) {
     state.list.splice(index, 1);
@@ -67,7 +68,12 @@ export default {
 
   },
   togglePlayStatus(state, payload) {
+    let audio = document.getElementById('audio');
+    if(audio.src.indexOf('lxf')!==-1){
+      return;
+    }
     state.playStatus = !state.playStatus;
+
   },
   //设置播放状态为true
   play(state, payload) {

@@ -3,9 +3,9 @@
     <!--轮播-->
     <el-carousel trigger="click" indicator-position="none" height="4.8rem">
       <el-carousel-item v-for="item in bannerData" :key="item.id">
-        <a :href="item.url">
+        <div>
           <img class="banner-pic" :src="item.pic" alt="">
-        </a>
+        </div>
       </el-carousel-item>
     </el-carousel>
 

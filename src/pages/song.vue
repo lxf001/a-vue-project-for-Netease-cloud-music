@@ -156,7 +156,7 @@ export default {
   }
 
   .img-wrapper {
-    @include wh(8rem);
+    @include wh(7.8rem);
     margin: 1.75rem auto;
     @include flex(center, center);
     transform-origin: 50% 50%;
@@ -167,9 +167,9 @@ export default {
     &::before {
       content: "";
       position: absolute;
-      background: url(../assets/cd_wrapper.png);
+      background: url(../assets/cd_wrapper.png) no-repeat;
       background-size: contain;
-      @include wh(8rem);
+      @include wh(7.8rem);
       top: 0;
       left: 0;
     }

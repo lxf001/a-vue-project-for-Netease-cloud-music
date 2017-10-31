@@ -1,7 +1,7 @@
 <template>
   <div>
     <mu-list >
-      <mu-list-item :title="item.name" :describeText="`${item.artists[0].name} - ${item.album.name}`" v-for="(item,index) in rank.tracks.slice(0,50)" :key="item.id"  @click="routerGo(item)">
+      <mu-list-item :title="item.name" :describeText="`${item.artists[0].name} - ${item.album.name}`" v-for="(item,index) in rank" :key="item.id"  @click="routerGo(item)">
         <mu-avatar color="red" backgroundColor="transparent" slot="leftAvatar" style="color:red">{{index+1}}</mu-avatar>
        <i class="iconfont icon-play1" slot="right" ></i>
       </mu-list-item>
@@ -26,15 +26,15 @@ export default {
     async getRank(id = 0) {
       try {
         let res = await getRank(id);
-        this.rank = res.code === 200 ? res.result : {};
-
+        res = res.code === 200 ? res.result : {};
+        this.rank = res.tracks.slice(0,50);
         //获取url的集合
-        let ids = this.rank.tracks.map(x => x.id);
+        let ids = this.rank.map(x => x.id);
         res = await getMusicUrl(ids);
         let urls = res.code === 200 ? res.data : [];
 
         //将对应的url添加到tracks中对应的歌曲中
-        this.rank.tracks.forEach(x => {
+        this.rank.forEach(x => {
           urls.forEach(element => {
             if (element.id === x.id) {
               x.url = element.url;
